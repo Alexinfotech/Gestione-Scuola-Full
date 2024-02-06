@@ -1,5 +1,3 @@
-<%@page import="it.molinari.model.UtenteDTO"%>
-<%@ page contentType="text/html;charset=UTF-8" language="java"%>
 
 <%
 UtenteDTO utente = (UtenteDTO) request.getAttribute("utente");
@@ -35,7 +33,7 @@ String cap = utente != null && utente.getCap() != null ? utente.getCap() : "";
 		<div id="corpoPrincipale">
 			<h2>Utente</h2>
 			<form id="createUtenteForm" action="UtenteServlet" method="POST">
-				<!-- QuÃ¬ forse qualcosa di interessante sono riuscto a farlo-->
+				<!-- Quì forse qualcosa di interessante sono riuscto a farlo-->
 				<div class="form-group">
 					<input type="text" class="form-control" id="nome" name="nome"
 						required placeholder="Nome">
@@ -102,7 +100,7 @@ String cap = utente != null && utente.getCap() != null ? utente.getCap() : "";
 				<div id="messaggi" style="color: red;"></div>
 
 
-				<!-- Bottone per generare il Codice Fiscale, qui funziona, ma sto lavoro sul front Ã¨ da randagio -->
+				<!-- Bottone per generare il Codice Fiscale, qui funziona, ma sto lavoro sul front è da randagio -->
 				<button type="button" class="btn btn-secondary"
 					id="generateCodiceFiscale">Genera Codice Fiscale</button>
 				
@@ -151,7 +149,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	                    document.getElementById('codiceFiscale').value = data.data.cf;
 	                    messaggi.innerText += '\nCodice Fiscale generato con successo.';
 	                } else {
-	                    messaggi.innerText += '\nErrore: il campo codice fiscale non Ã¨ presente nella risposta dell\'API.';
+	                    messaggi.innerText += '\nErrore: il campo codice fiscale non è presente nella risposta dell\'API.';
      				 }
 	            })
 	            .catch(error => {
@@ -159,7 +157,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	            });
 	        });
 	    } else {
-	        console.error("Il bottone 'generateCodiceFiscale' non Ã¨ stato trovato.");
+	        console.error("Il bottone 'generateCodiceFiscale' non è stato trovato.");
 	    }
 	});
 	</script>
