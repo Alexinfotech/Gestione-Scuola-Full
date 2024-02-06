@@ -1,3 +1,5 @@
+<%@page import="it.molinari.model.UtenteDTO"%>
+<%@ page contentType="text/html;charset=UTF-8" language="java"%>
 
 <%
 UtenteDTO utente = (UtenteDTO) request.getAttribute("utente");
@@ -24,16 +26,20 @@ String cap = utente != null && utente.getCap() != null ? utente.getCap() : "";
 
 </head>
 <link rel="stylesheet" type="text/css" href="resources/css/style.css">
-
+<style>
+.form-control::placeholder {
+	color: black;
+}
+</style>
 <body>
 	<%@include file="../../views/struttura/header.jsp"%>
 	<div id="mainContainer">
 		<%@include file="../../views/struttura/menu.jsp"%>
 
 		<div id="corpoPrincipale">
-			<h2>Utente</h2>
+			<h2 style="color: #1e90ff;">Utente</h2>
 			<form id="createUtenteForm" action="UtenteServlet" method="POST">
-				<!-- Quì forse qualcosa di interessante sono riuscto a farlo-->
+				<!-- QuÃ¬ forse qualcosa di interessante sono riuscto a farlo-->
 				<div class="form-group">
 					<input type="text" class="form-control" id="nome" name="nome"
 						required placeholder="Nome">
@@ -43,7 +49,8 @@ String cap = utente != null && utente.getCap() != null ? utente.getCap() : "";
 						required placeholder="Cognome">
 				</div>
 				<div class="form-group">
-					<select class="form-control" id="sesso" name="sesso" required>
+					<select class="form-control" style="color: black;" "id="sesso"
+						name="sesso" required>
 						<option value="M">Maschio</option>
 						<option value="F">Femmina</option>
 				</div>
@@ -54,8 +61,8 @@ String cap = utente != null && utente.getCap() != null ? utente.getCap() : "";
 						placeholder="E-mail">
 				</div>
 				<div class="form-group">
-					<input type="date" class="form-control" id="dataNascita"
-						name="dataNascita" min="1900-01-01" required>
+					<input type="date" class="form-control" style="color: black;"
+						id="dataNascita" name="dataNascita" min="1900-01-01" required>
 				</div>
 				<div class="form-group">
 					<input type="text" class="form-control" id="comuneDiNascita"
@@ -100,16 +107,24 @@ String cap = utente != null && utente.getCap() != null ? utente.getCap() : "";
 				<div id="messaggi" style="color: red;"></div>
 
 
-				<!-- Bottone per generare il Codice Fiscale, qui funziona, ma sto lavoro sul front è da randagio -->
+				<!-- Bottone per generare il Codice Fiscale, qui funziona, ma sto lavoro sul front Ã¨ da randagio -->
 				<button type="button" class="btn btn-secondary"
-					id="generateCodiceFiscale">Genera Codice Fiscale</button>
-				
-				<button type="submit" class="btn btn-primary">Aggiungi Utente
-					utente</button>
-				<p style="color: red; margin: 0;">Per generare automaticamente
-					il codice fiscale inserire:</p>
-				<p style="color: red; margin: 0;">nome, cognome, sesso, data di
-					nascita, comune di nascita, e provincia.</p>
+					id="generateCodiceFiscale" style="color: red;">
+					<strong>Genera Codice Fiscale</strong>
+				</button>
+
+				<button type="submit" class="btn btn-secondary"
+					style="color: #1e90ff;">
+					<strong>Aggiungi Utente</strong>
+				</button>
+				<p style="color: #1e90ff; margin: 0;">
+					<strong>Per generare automaticamente il Codice Fiscale
+						inserire:</strong>
+				</p>
+				<p style="color: #1e90ff; margin: 0;">
+					<strong>Nome, Cognome, Sesso, Data di Nascita, Comune Di
+						Nascita e Provincia.</strong>
+				</p>
 
 
 			</form>
@@ -132,7 +147,7 @@ document.addEventListener('DOMContentLoaded', () => {
             '&month=' + encodeURIComponent(document.getElementById('dataNascita').value.split('-')[1]) +
             '&year=' + encodeURIComponent(document.getElementById('dataNascita').value.split('-')[0]) +
             '&omocodia_level=1' +
-            '&access_token=<%= UtenteDTO.getApiToken() %>';
+            '&access_token=<%=UtenteDTO.getApiToken()%>';
             console.log('URL API completa:', apiUrl);
 
 	            fetch(apiUrl, {
@@ -149,7 +164,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	                    document.getElementById('codiceFiscale').value = data.data.cf;
 	                    messaggi.innerText += '\nCodice Fiscale generato con successo.';
 	                } else {
-	                    messaggi.innerText += '\nErrore: il campo codice fiscale non è presente nella risposta dell\'API.';
+	                    messaggi.innerText += '\nErrore: il campo codice fiscale non Ã¨ presente nella risposta dell\'API.';
      				 }
 	            })
 	            .catch(error => {
@@ -157,7 +172,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	            });
 	        });
 	    } else {
-	        console.error("Il bottone 'generateCodiceFiscale' non è stato trovato.");
+	        console.error("Il bottone 'generateCodiceFiscale' non Ã¨ stato trovato.");
 	    }
 	});
 	</script>

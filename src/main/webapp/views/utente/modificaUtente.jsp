@@ -21,7 +21,7 @@ if (utente != null && utente.getDataNascita() != null) {
 		<%@include file="../../views/struttura/menu.jsp"%>
 
 		<div id="corpoPrincipale">
-			<h2>Utente</h2>
+			<h2 style="color: #1e90ff;">Utente</h2>
 			<form id="updateUtenteForm" action="UtenteServlet" method="POST">
 
 				<input type="hidden" name="_method" value="PUT"> <input

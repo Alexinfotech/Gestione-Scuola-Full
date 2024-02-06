@@ -15,13 +15,13 @@
 		<%@include file="../../views/struttura/menu.jsp"%>
 
 		<div id="corpoPrincipale">
-			<h2>Utente</h2>
+			<h2 style="color: #1e90ff;">Utente</h2>
 
 			<form id="searchUtenteForm" action="UtenteServlet" method="GET">
 				<input type="hidden" name="action" value="search"> <label
-					for="searchCodiceFiscale">Codice Fiscale:</label> <input
-					type="text" id="searchCodiceFiscale" name="codiceFiscale" required>
-				<button type="submit" class="btn btn-primary">Cerca Utente</button>
+					for="searchCodiceFiscale" style="color: black;">Codice Fiscale:</label> <input
+					type="text" style="color: black;" id="searchCodiceFiscale" name="codiceFiscale" required>
+				<button type="submit" class="btn btn-secondary" style="color: #1e90ff;" ><strong>Cerca Utente</strong></button>
 			</form>
 
 

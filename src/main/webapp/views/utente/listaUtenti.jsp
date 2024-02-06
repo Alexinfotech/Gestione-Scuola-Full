@@ -36,7 +36,7 @@
 		<%@include file="../../views/struttura/menu.jsp"%>
 
 		<div id="corpoPrincipale">
-			<h2>Elenco Utenti</h2>
+			<h2 style="color: #1e90ff;">Elenco Utenti</h2>
 			<table class="table-custom">
 				<thead>
 					<tr>
@@ -69,9 +69,9 @@
 					<tr>
 						<td class="bold-text"><%=utente.getCodiceFiscale()%></td>
 						<td><%=utente.getNome()%></td>
-						<td><%=utente.getCognome()%></td>
-						<td class="bold-text"><%=utente.getEmail()%></td>
-						<td><%=utente.getDataNascita()%></td>
+						<td class="bold-text"><%=utente.getCognome()%></td>
+						<td style="color: #1e90ff;" class="bold-text"><%=utente.getEmail()%></td>
+						<td class="bold-text"><%=utente.getDataNascita()%></td>
 						<td><%=utente.getComuneDiNascita()%></td>
 						<td><%=utente.getProvincia()%></td>
 						<td><%=utente.getComuneDiResidenza()%></td>

@@ -20,14 +20,18 @@ String provinvia = utente != null && utente.getProvincia() != null ? utente.getP
 	href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.2/dist/cerulean/bootstrap.min.css">
 </head>
 <link rel="stylesheet" type="text/css" href="resources/css/style.css">
-
+<style>
+.form-control::placeholder {
+    color: black;
+}
+</style>
 <body>
 	<%@include file="../../views/struttura/header.jsp"%>
 	<div id="mainContainer">
 		<%@include file="../../views/struttura/menu.jsp"%>
 
 		<div id="corpoPrincipale">
-			<h2>Genera solo Codice Fiscale</h2>
+			<h2 style="color: #1e90ff;">Genera solo Codice Fiscale</h2>
 			<!--  	<form id="createUtenteForm" action="UtenteServlet" method="POST"> -->
 			<!-- Campi del form - aggio -->
 
@@ -42,12 +46,12 @@ String provinvia = utente != null && utente.getProvincia() != null ? utente.getP
 					required placeholder="Cognome">
 			</div>
 			<div class="form-group">
-				<select class="form-control" id="sesso" name="sesso" required>
+				<select class="form-control" style="color: black;" id="sesso" name="sesso" required>
 					<option value="M">Maschio</option>
 					<option value="F">Femmina</option>
 			</div>
 			<div class="form-group">
-				<input type="date" class="form-control" id="dataNascita"
+				<input type="date" class="form-control" style="color: black;"  id="dataNascita"
 					name="dataNascita" min="1900-01-01" required>
 			</div>
 			<div class="form-group">
@@ -74,12 +78,16 @@ String provinvia = utente != null && utente.getProvincia() != null ? utente.getP
 			<div id="messaggi" style="color: red;"></div>
 			<!-- Bottone per generare il Codice Fiscale, qui funziona, ma sto lavoro sul front è da randagio -->
 			<button type="button" class="btn btn-secondary"
-				id="generateCodiceFiscale">Genera Codice Fiscale</button>
+					id="generateCodiceFiscale" style="color: #1e90ff;"><strong>Genera Codice Fiscale</strong></button>
 
-			<p style="color: red; margin: 0;">Per generare automaticamente il
-				codice fiscale inserire:</p>
-			<p style="color: red; margin: 0;">nome, cognome, sesso, data di
-				nascita, comune di nascita, e provincia.</p>
+			<p style="color: #1e90ff; margin: 0;">
+				<strong>Per generare automaticamente il Codice Fiscale
+					inserire:</strong>
+			</p>
+			<p style="color: #1e90ff;  margin: 0;">
+				<strong>Nome, Cognome, Sesso, Data di Nascita, Comune Di
+					Nascita e Provincia.</strong>
+			</p>
 
 
 			</form>
@@ -102,7 +110,7 @@ document.addEventListener('DOMContentLoaded', () => {
             '&month=' + encodeURIComponent(document.getElementById('dataNascita').value.split('-')[1]) +
             '&year=' + encodeURIComponent(document.getElementById('dataNascita').value.split('-')[0]) +
             '&omocodia_level=0' +
-            '&access_token=<%= UtenteDTO.getApiToken() %>';
+            '&access_token=<%=UtenteDTO.getApiToken()%>';
             console.log('URL API completa:', apiUrl);
 
 	            fetch(apiUrl, {

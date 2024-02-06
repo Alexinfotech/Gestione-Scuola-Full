@@ -27,7 +27,7 @@ String provinvia = utente != null && utente.getProvincia() != null ? utente.getP
 		<%@include file="../../views/struttura/menu.jsp"%>
 
 		<div id="corpoPrincipale">
-			<h2>Prova CF</h2>
+			<h2 style="color: #1e90ff;">Prova CF</h2>
 			<form id="formCodiceFiscale" action="ProvaCodiceFiscale"
 				method="POST">
 				<!-- Campi del form -->
