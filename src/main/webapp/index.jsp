@@ -30,7 +30,7 @@
 			<a href="registrazione.jsp" class="text-dark">Registrati ora</a>
 		</p>
 
-	
+
 	</div>
 
 	<div id="corpoPrincipale" class="container mt-4">

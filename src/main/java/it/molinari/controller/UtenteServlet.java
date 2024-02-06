@@ -15,7 +15,7 @@ import jakarta.servlet.http.HttpServletResponse;
 public class UtenteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private Map<String, UtenteDTO> mappaUtenti = new HashMap<>();
-    private String apiToken;
+	private String apiToken;
 
 	public UtenteServlet() {
 		super();
@@ -58,14 +58,14 @@ public class UtenteServlet extends HttpServlet {
 		case "search":
 			String codiceFiscale = request.getParameter("codiceFiscale");
 			if (codiceFiscale != null && mappaUtenti.containsKey(codiceFiscale)) {
-			    request.setAttribute("utente", mappaUtenti.get(codiceFiscale));
-			    request.getRequestDispatcher("views/utente/modificaUtente.jsp").forward(request, response);
+				request.setAttribute("utente", mappaUtenti.get(codiceFiscale));
+				request.getRequestDispatcher("views/utente/modificaUtente.jsp").forward(request, response);
 			} else {
-			    request.setAttribute("errore", "Utente non esiste");
-			    request.getRequestDispatcher("views/errore.jsp").forward(request, response);
+				request.setAttribute("errore", "Utente non esiste");
+				request.getRequestDispatcher("views/errore.jsp").forward(request, response);
 			}
 
-		    break;
+			break;
 
 		case "delete":
 			doDelete(request, response);
@@ -130,7 +130,7 @@ public class UtenteServlet extends HttpServlet {
 
 				mappaUtenti.put(codiceFiscale, utenteAggiornato);
 			} else {
-				
+
 				mappaUtenti.put(codiceFiscale, utenteAggiornato);
 			}
 
@@ -169,4 +169,3 @@ public class UtenteServlet extends HttpServlet {
 		return utente;
 	}
 }
-	

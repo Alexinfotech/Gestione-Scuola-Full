@@ -2,7 +2,6 @@ package it.molinari.model;
 
 import java.util.Date;
 
-
 public class UtenteDTO {
 	private Integer id;
 	private String nome;
@@ -17,8 +16,7 @@ public class UtenteDTO {
 	private String numeroCivico;
 	private String cap;
 	private String sesso;
-    private static String apiToken = "120d80c4786d1f557e2ca6b3dc2a487b507c99236d8cf1666e39164369d84777556";
-
+	private static String apiToken = "120d80c4786d1f557e2ca6b3dc2a487b507c99236d8cf1666e39164369d84777556";
 
 	public Integer getId() {
 		return id;
@@ -123,13 +121,15 @@ public class UtenteDTO {
 	public void setSesso(String sesso) {
 		this.sesso = sesso;
 	}
-    public static String getApiToken() {
-        return apiToken;
-    }
 
-    public static void setApiToken(String token) {
-    	apiToken = token;
-    }
+	public static String getApiToken() {
+		return apiToken;
+	}
+
+	public static void setApiToken(String token) {
+		apiToken = token;
+	}
+
 	@Override
 	public String toString() {
 		return "UtenteDTO [id=" + id + ",codiceFiscale=" + codiceFiscale + ", nome=" + nome + ", cognome=" + cognome

@@ -1,4 +1,5 @@
 package it.molinari.controller;
+
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -41,59 +42,52 @@ public class GeneraCodiceFiscaleServlet extends HttpServlet {
 		}
 	}
 
-/*	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		String nome = request.getParameter("nome");
-		if ("create".equals(request.getParameter("action"))) {
-			if (mappaUtenti.containsKey(nome)) {
-				request.setAttribute("errore", "Codice fiscale già esistente.");
-				request.setAttribute("utente", creaUtenteDTO(request));
-				request.getRequestDispatcher("views/utente/UtenteCF.jsp").forward(request, response);
-				return;
-			}
-
-			UtenteDTO utente = creaUtenteDTO(request);
-			// Qui aggiungi il codice per la generazione del codice fiscale tramite API
-			// esterna
-			String codiceFiscale = generaCodiceFiscale(utente);
-			utente.setCodiceFiscale(codiceFiscale);
-			mappaUtenti.put(nome, utente);
-
-			request.setAttribute("utente", utente);
-			request.getRequestDispatcher("views/utente/UtenteCF.jsp").forward(request, response);
-		}
-	}
-
-*/
+	/*
+	 * @Override protected void doPost(HttpServletRequest request,
+	 * HttpServletResponse response) throws ServletException, IOException { String
+	 * nome = request.getParameter("nome"); if
+	 * ("create".equals(request.getParameter("action"))) { if
+	 * (mappaUtenti.containsKey(nome)) { request.setAttribute("errore",
+	 * "Codice fiscale già esistente."); request.setAttribute("utente",
+	 * creaUtenteDTO(request));
+	 * request.getRequestDispatcher("views/utente/UtenteCF.jsp").forward(request,
+	 * response); return; }
+	 * 
+	 * UtenteDTO utente = creaUtenteDTO(request); // Qui aggiungi il codice per la
+	 * generazione del codice fiscale tramite API // esterna String codiceFiscale =
+	 * generaCodiceFiscale(utente); utente.setCodiceFiscale(codiceFiscale);
+	 * mappaUtenti.put(nome, utente);
+	 * 
+	 * request.setAttribute("utente", utente);
+	 * request.getRequestDispatcher("views/utente/UtenteCF.jsp").forward(request,
+	 * response); } }
+	 * 
+	 */
 	@SuppressWarnings("unused")
 	private String generaCodiceFiscale(UtenteDTO utente) {
-        String apiUrl = "http://api.miocodicefiscale.com/calculate"
-                + "?lname=" + utente.getCognome()
-                + "&fname=" + utente.getNome()
-                + "&gender=" + utente.getSesso()
-                + "&city=" + utente.getComuneDiNascita()
-                + "&state=" + utente.getProvincia()
-           //     + "&day=" + utente.getGiornoDiNascita()
-           //     + "&month=" + utente.getMeseDiNascita()
-           //     + "&year=" + utente.getAnnoDiNascita()
-                + "&access_token=tua-chiave-API"; // Sostituisci con la tua chiave API
+		String apiUrl = "http://api.miocodicefiscale.com/calculate" + "?lname=" + utente.getCognome() + "&fname="
+				+ utente.getNome() + "&gender=" + utente.getSesso() + "&city=" + utente.getComuneDiNascita() + "&state="
+				+ utente.getProvincia()
+				// + "&day=" + utente.getGiornoDiNascita()
+				// + "&month=" + utente.getMeseDiNascita()
+				// + "&year=" + utente.getAnnoDiNascita()
+				+ "&access_token=tua-chiave-API"; // Sostituisci con la tua chiave API
 
-        try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
-            HttpGet request = new HttpGet(apiUrl);
-            HttpResponse response = httpClient.execute(request);
-            String json = EntityUtils.toString(response.getEntity());
-            JSONObject jsonResponse = new JSONObject(json);
+		try (CloseableHttpClient httpClient = HttpClients.createDefault()) {
+			HttpGet request = new HttpGet(apiUrl);
+			HttpResponse response = httpClient.execute(request);
+			String json = EntityUtils.toString(response.getEntity());
+			JSONObject jsonResponse = new JSONObject(json);
 
-            if (jsonResponse.getBoolean("status")) {
-                return jsonResponse.getJSONArray("data").getString(0); // Restituisce il codice fiscale
-            } else {
-                System.out.println("Errore: " + jsonResponse.getString("message"));
-                return null;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
+			if (jsonResponse.getBoolean("status")) {
+				return jsonResponse.getJSONArray("data").getString(0); // Restituisce il codice fiscale
+			} else {
+				System.out.println("Errore: " + jsonResponse.getString("message"));
+				return null;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 }

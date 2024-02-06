@@ -44,10 +44,10 @@ if (utente != null && utente.getDataNascita() != null) {
 						id="email" name="email" value="<%=utente.getEmail()%>" required>
 				</div>
 				<div class="form-group">
-					<label for="dataNascita">Data di nascita</label> <input
-						type="date" class="form-control"
-						style="color: black; font-weight: bold;" id="dataNascita"
-						name="dataNascita" value="<%=formattedDate%>" required>
+					<label for="dataNascita">Data di nascita</label> <input type="date"
+						class="form-control" style="color: black; font-weight: bold;"
+						id="dataNascita" name="dataNascita" value="<%=formattedDate%>"
+						required>
 				</div>
 
 				<div class="form-group">

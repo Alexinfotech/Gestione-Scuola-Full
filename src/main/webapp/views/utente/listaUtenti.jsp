@@ -14,11 +14,11 @@
 	color: black; /* Imposta il colore del testo su nero */
 	font-weight: bold; /* Imposta il testo in grassetto */
 	text-decoration: none;
-
 }
+
 .bold-text {
-    font-weight: bold; /* Imposta il testo in grassetto */
-  }
+	font-weight: bold; /* Imposta il testo in grassetto */
+}
 </style>
 
 
