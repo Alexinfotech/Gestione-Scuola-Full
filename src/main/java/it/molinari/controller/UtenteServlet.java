@@ -86,6 +86,7 @@ public class UtenteServlet extends HttpServlet {
 			if (mappaUtenti.containsKey(codiceFiscale)) {
 				// Imposto un messaggio di errore test
 				request.setAttribute("errore", "Codice fiscale già esistente. Inserisci un codice fiscale diverso.");
+				request.setAttribute("errore", "Utente non trovato");
 
 				// Reimposta i valori inseriti dall'utente
 				request.setAttribute("utente", creaUtenteDTO(request));
