@@ -15,8 +15,7 @@ import jakarta.servlet.http.HttpServletResponse;
 public class UtenteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private Map<String, UtenteDTO> mappaUtenti = new HashMap<>();
-    @SuppressWarnings("unused")
-	private String apiToken;
+    private String apiToken;
 
 	public UtenteServlet() {
 		super();

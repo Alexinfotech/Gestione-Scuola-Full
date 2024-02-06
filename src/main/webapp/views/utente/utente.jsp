@@ -41,58 +41,62 @@ String cap = utente != null && utente.getCap() != null ? utente.getCap() : "";
 			<form id="createUtenteForm" action="UtenteServlet" method="POST">
 				<!-- Quì forse qualcosa di interessante sono riuscto a farlo-->
 				<div class="form-group">
-					<input type="text" class="form-control" id="nome" name="nome"
-						required placeholder="Nome">
+					<input type="text" class="form-control" style="color: black;"
+						id="nome" name="nome" required placeholder="Nome">
 				</div>
 				<div class="form-group">
-					<input type="text" class="form-control" id="cognome" name="cognome"
-						required placeholder="Cognome">
+					<input type="text" class="form-control" style="color: black;"
+						id="cognome" name="cognome" required placeholder="Cognome">
 				</div>
 				<div class="form-group">
-					<select class="form-control" style="color: black;" "id="sesso"
-						name="sesso" required>
+					<select class="form-control" id="sesso" name="sesso" required>
 						<option value="M">Maschio</option>
 						<option value="F">Femmina</option>
 				</div>
 
 				<div class="form-group">
 					<label for="email">e-mail:</label> <input type="email"
-						class="form-control" id="email" name="email" required
-						placeholder="E-mail">
+						class="form-control" style="color: black;" id="email" name="email"
+						required placeholder="E-mail">
 				</div>
 				<div class="form-group">
 					<input type="date" class="form-control" style="color: black;"
 						id="dataNascita" name="dataNascita" min="1900-01-01" required>
 				</div>
 				<div class="form-group">
-					<input type="text" class="form-control" id="comuneDiNascita"
-						name="comuneDiNascita" required placeholder="Comune di Nascita">
+					<input type="text" class="form-control" style="color: black;"
+						id="comuneDiNascita" name="comuneDiNascita" required
+						placeholder="Comune di Nascita">
 				</div>
 				<div class="form-group">
-					<input type="text" class="form-control" id="provincia"
-						name="provincia" maxlength="2" required placeholder="provincia">
+					<input type="text" class="form-control" style="color: black;"
+						id="provincia" name="provincia" maxlength="2" required
+						placeholder="Provincia">
 				</div>
 				<div class="form-group">
-					<input type="text" class="form-control" id="comuneDiResidenza"
-						name="comuneDiResidenza" required
+					<input type="text" class="form-control" style="color: black;"
+						id="comuneDiResidenza" name="comuneDiResidenza" required
 						placeholder="Comune Di Residenza">
 				</div>
 
 				<div class="form-group">
-					<input type="text" class="form-control" id="via" name="via"
-						required placeholder="Via">
+					<input type="text" class="form-control" style="color: black;"
+						id="via" name="via" required placeholder="Via">
 				</div>
 				<div class="form-group">
-					<input type="text" class="form-control" id="numeroCivico"
-						name="numeroCivico" required placeholder="Numero civico">
+					<input type="text" class="form-control" style="color: black;"
+						id="numeroCivico" name="numeroCivico" required
+						placeholder="Numero civico">
 				</div>
 				<div class="form-group">
-					<input type="number" class="form-control" id="cap" name="cap"
-						min="00000" max="99999" required placeholder="CAP">
+					<input type="number" class="form-control" style="color: black;"
+						id="cap" name="cap" min="00000" max="99999" required
+						placeholder="CAP">
 				</div>
 				<div class="form-group">
 					<div class="input-group">
-						<input type="text" class="form-control" id="codiceFiscale"
+						<input type="text" class="form-control"
+							style="color: red; font-weight: bold;" id="codiceFiscale"
 							name="codiceFiscale" size="1" value="<%=codiceFiscale%>" required
 							placeholder="Codice Fiscale" pattern="[A-Z0-9]{16}"> <span
 							id="erroreCodiceFiscale" class="text-danger"></span>

@@ -22,7 +22,7 @@ String provinvia = utente != null && utente.getProvincia() != null ? utente.getP
 <link rel="stylesheet" type="text/css" href="resources/css/style.css">
 <style>
 .form-control::placeholder {
-    color: black;
+	color: black;
 }
 </style>
 <body>
@@ -38,34 +38,37 @@ String provinvia = utente != null && utente.getProvincia() != null ? utente.getP
 			<!--  	<form id="createUtenteForm" action="UtenteServlet" method="POST"> -->
 			<!-- Quì forse qualcosa di interessante sono riuscto a farlo-->
 			<div class="form-group">
-				<input type="text" class="form-control" id="nome" name="nome"
-					required placeholder="Nome">
+				<input type="text" class="form-control" style="color: black;"
+					id="nome" name="nome" required placeholder="Nome">
 			</div>
 			<div class="form-group">
-				<input type="text" class="form-control" id="cognome" name="cognome"
-					required placeholder="Cognome">
+				<input type="text" class="form-control" style="color: black;"
+					id="cognome" name="cognome" required placeholder="Cognome">
 			</div>
 			<div class="form-group">
-				<select class="form-control" style="color: black;" id="sesso" name="sesso" required>
+				<select class="form-control" style="color: black;" id="sesso"
+					name="sesso" required>
 					<option value="M">Maschio</option>
 					<option value="F">Femmina</option>
 			</div>
 			<div class="form-group">
-				<input type="date" class="form-control" style="color: black;"  id="dataNascita"
-					name="dataNascita" min="1900-01-01" required>
+				<input type="date" class="form-control" style="color: black;"
+					id="dataNascita" name="dataNascita" min="1900-01-01" required>
 			</div>
 			<div class="form-group">
-				<input type="text" class="form-control" id="comuneDiNascita"
-					name="comuneDiNascita" required placeholder="Comune di Nascita">
+				<input type="text" class="form-control" style="color: black;"
+					id="comuneDiNascita" name="comuneDiNascita" required
+					placeholder="Comune di Nascita">
 			</div>
 			<div class="form-group">
-				<input type="text" class="form-control" id="provincia"
-					name="provincia" maxlength="2" required placeholder="provincia">
+				<input type="text" class="form-control" style="color: black;"
+					id="provincia" name="provincia" maxlength="2" required
+					placeholder="Provincia">
 			</div>
 			<div class="form-group">
 				<div class="input-group">
-					<select class="form-control" id="listaCodiciFiscali"
-						name="listaCodiciFiscali" size="1">
+					<select class="form-control" style="color: red; font-weight: bold;"
+						id="listaCodiciFiscali" name="listaCodiciFiscali" size="1">
 						<!-- Le opzioni saranno aggiunte qui dinamicamente -->
 					</select>
 
@@ -78,13 +81,15 @@ String provinvia = utente != null && utente.getProvincia() != null ? utente.getP
 			<div id="messaggi" style="color: red;"></div>
 			<!-- Bottone per generare il Codice Fiscale, qui funziona, ma sto lavoro sul front è da randagio -->
 			<button type="button" class="btn btn-secondary"
-					id="generateCodiceFiscale" style="color: #1e90ff;"><strong>Genera Codice Fiscale</strong></button>
+				id="generateCodiceFiscale" style="color: #1e90ff;">
+				<strong>Genera Codice Fiscale</strong>
+			</button>
 
 			<p style="color: #1e90ff; margin: 0;">
 				<strong>Per generare automaticamente il Codice Fiscale
 					inserire:</strong>
 			</p>
-			<p style="color: #1e90ff;  margin: 0;">
+			<p style="color: #1e90ff; margin: 0;">
 				<strong>Nome, Cognome, Sesso, Data di Nascita, Comune Di
 					Nascita e Provincia.</strong>
 			</p>
