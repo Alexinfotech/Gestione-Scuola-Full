@@ -4,6 +4,22 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.2/dist/cerulean/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/resources/css/style.css">
     </head>
+    <style>
+.pie-chart {
+	width: 150px;
+	height: 150px;
+	border-radius: 50%;
+	position: relative;
+}
+
+.slice {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	clip: rect(0px, 75px, 150px, 0px);
+	border-radius: 50%;
+}
+</style>
 <div id="corpoPrincipale" class="container mt-6">
     
 	<h2>Dashboard</h2>
@@ -57,27 +73,12 @@
 	</div>
 </div>
 
-<style>
-.pie-chart {
-	width: 150px;
-	height: 150px;
-	border-radius: 50%;
-	position: relative;
-}
 
-.slice {
-	position: absolute;
-	width: 100%;
-	height: 100%;
-	clip: rect(0px, 75px, 150px, 0px);
-	border-radius: 50%;
-}
-</style>
 </div>
 	<div class="updates-feed">
 		<h4>Ultimi Aggiornamenti</h4>
 		<p>Rilasciata nuova versione del software - 10/04/2024</p>
 	</div>
-</div>
+
 </html>
 

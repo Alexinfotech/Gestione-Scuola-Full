@@ -38,7 +38,8 @@ String cap = utente != null && utente.getCap() != null ? utente.getCap() : "";
 
 		<div id="corpoPrincipale">
 			<h2 style="color: #1e90ff;">Utente</h2>
-			<form id="createUtenteForm" action="UtenteServlet" method="POST">
+			<form id="createUtenteForm" action="UtenteServletDB" method="POST">
+				<input type="hidden" name="action" value="create">
 				<!-- Quì forse qualcosa di interessante sono riuscto a farlo-->
 				<div class="form-group">
 					<input type="text" class="form-control" style="color: black;"

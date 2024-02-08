@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.Date;
 import java.util.HashMap;
 import java.util.Map;
+
 import it.molinari.model.UtenteDTO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -11,13 +12,13 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@WebServlet("/UtenteServlet")
-public class UtenteServlet extends HttpServlet {
+@WebServlet("/UtenteServletParcheggio")
+public class UtenteServletParcheggio extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private Map<String, UtenteDTO> mappaUtenti = new HashMap<>();
 	private String apiToken;
 
-	public UtenteServlet() {
+	public UtenteServletParcheggio() {
 		super();
 	}
 

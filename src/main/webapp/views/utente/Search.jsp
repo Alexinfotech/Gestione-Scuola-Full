@@ -17,7 +17,7 @@
 		<div id="corpoPrincipale">
 			<h2 style="color: #1e90ff;">Utente</h2>
 
-			<form id="searchUtenteForm" action="UtenteServlet" method="GET">
+			<form id="searchUtenteForm" action="UtenteServletDB" method="GET">
 				<input type="hidden" name="action" value="search"> <label
 					for="searchCodiceFiscale" style="color: black;">Codice
 					Fiscale:</label> <input type="text"

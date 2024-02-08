@@ -1,7 +1,7 @@
 <%@page import="it.molinari.model.UtenteDTO"%>
-<%@page import="java.util.Map"%>
-<%@page import="java.util.Map.Entry"%>
+<%@page import="java.util.List"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
+
 
 
 <head>
@@ -61,10 +61,9 @@
 				</thead>
 				<tbody>
 					<%
-					Map<String, UtenteDTO> mappaUtenti = (Map<String, UtenteDTO>) request.getAttribute("mappaUtenti");
-					if (mappaUtenti != null && !mappaUtenti.isEmpty()) {
-						for (Entry<String, UtenteDTO> entry : mappaUtenti.entrySet()) {
-							UtenteDTO utente = entry.getValue();
+					List<UtenteDTO> listaUtenti = (List<UtenteDTO>) request.getAttribute("listaUtenti");
+					if (listaUtenti != null && !listaUtenti.isEmpty()) {
+						for (UtenteDTO utente : listaUtenti) {
 					%>
 					<tr>
 						<td class="bold-text"><%=utente.getCodiceFiscale()%></td>
@@ -78,26 +77,27 @@
 						<td><%=utente.getVia()%></td>
 						<td><%=utente.getNumeroCivico()%></td>
 						<td><%=utente.getCap()%></td>
-
+						<!-- Aggiungi qui altre colonne se necessario -->
 						<td><a
-							href="UtenteServlet?action=dettaglio&id=<%=utente.getCodiceFiscale()%>"
+							href="UtenteServletDB?action=dettaglio&codiceFiscale=<%=utente.getCodiceFiscale()%>"
 							class="black-bold-text">Modifica</a></td>
 						<td><a
-							href="UtenteServlet?action=delete&id=<%=utente.getCodiceFiscale()%>"
+							href="UtenteServlet?action=delete&codiceFiscale=<%=utente.getCodiceFiscale()%>"
 							onclick="return confermaEliminazione('<%=utente.getNome()%>', '<%=utente.getCodiceFiscale()%>');"
 							class="black-bold-text">Elimina</a></td>
-
-						<%
-						}
-						} else {
-						%>
-					
+					</tr>
+					<%
+					}
+					} else {
+					%>
 					<tr>
-						<td colspan="5" class="text-center">Non ci sono utenti.</td>
+						<td colspan="11" class="text-center">Non ci sono utenti
+							registrati.</td>
 					</tr>
 					<%
 					}
 					%>
+
 				</tbody>
 			</table>
 		</div>

@@ -22,9 +22,9 @@ if (utente != null && utente.getDataNascita() != null) {
 
 		<div id="corpoPrincipale">
 			<h2 style="color: #1e90ff;">Utente</h2>
-			<form id="updateUtenteForm" action="UtenteServlet" method="POST">
-
-				<input type="hidden" name="_method" value="PUT"> <input
+			<form id="updateUtenteForm" action="UtenteServletDB" method="POST">
+				<input type="hidden" name="action" value="update"> <input
+					type="hidden" name="_method" value="PUT"> <input
 					type="hidden" name="id" value="<%=utente.getCodiceFiscale()%>">
 
 				<div class="form-group">

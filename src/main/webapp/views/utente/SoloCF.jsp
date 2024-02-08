@@ -46,11 +46,10 @@ String provinvia = utente != null && utente.getProvincia() != null ? utente.getP
 					id="cognome" name="cognome" required placeholder="Cognome">
 			</div>
 			<div class="form-group">
-				<select class="form-control" style="color: black;" id="sesso"
-					name="sesso" required>
-					<option value="M">Maschio</option>
-					<option value="F">Femmina</option>
-			</div>
+					<select class="form-control" id="sesso" name="sesso" required>
+						<option value="M">Maschio</option>
+						<option value="F">Femmina</option>
+				</div>
 			<div class="form-group">
 				<input type="date" class="form-control" style="color: black;"
 					id="dataNascita" name="dataNascita" min="1900-01-01" required>
@@ -95,7 +94,7 @@ String provinvia = utente != null && utente.getProvincia() != null ? utente.getP
 			</p>
 
 
-			</form>
+			
 		</div>
 	</div>
 	<script>

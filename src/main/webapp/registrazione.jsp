@@ -10,7 +10,7 @@
 
 	<div id="login" class="container mt-4">
 		<h2>Registrazione</h2>
-		<form id="registrazioneForm" action="LoginServlet?action=register"
+		<form id="registrazioneForm" action="LoginServletDB?action=register"
 			method="POST">
 			<div class="form-group">
 				<label for="newEmail">Email:</label> <input type="email"
