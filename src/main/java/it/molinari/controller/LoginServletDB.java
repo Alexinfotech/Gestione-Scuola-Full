@@ -4,7 +4,7 @@ package it.molinari.controller;
 import java.io.IOException;
 import java.sql.SQLException;
 
-import it.molinari.connessione.GestioneLogin;
+import it.molinari.DAO.LoginDAO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -14,7 +14,7 @@ import jakarta.servlet.http.HttpServletResponse;
 @WebServlet("/LoginServletDB")
 public class LoginServletDB extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private GestioneLogin gestionelogin = new GestioneLogin();
+	private LoginDAO gestionelogin = new LoginDAO();
 
 	public LoginServletDB() {
 		super();
@@ -25,7 +25,7 @@ public class LoginServletDB extends HttpServlet {
 	    
 	    if ("register".equals(action)) {
 	        String newEmail = request.getParameter("newEmail");
-	        String newPassword = request.getParameter("newPassword"); // Considera di hashare la password
+	        String newPassword = request.getParameter("newPassword"); // Considera di hashare la password in futuro
 	        
 	        try {
 	            if (!gestionelogin.emailExists(newEmail)) {

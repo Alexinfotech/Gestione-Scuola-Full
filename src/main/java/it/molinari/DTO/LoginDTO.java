@@ -1,10 +1,9 @@
-package it.molinari.model;
+package it.molinari.DTO;
 
 public class LoginDTO {
     private String email;
     private String password;
 
-    // Costruttore vuoto se necessario
     public LoginDTO() {
     }
 
@@ -14,7 +13,6 @@ public class LoginDTO {
         this.password = password;
     }
 
-    // Getter e Setter
     public String getEmailLogin() {
         return email;
     }
@@ -31,7 +29,6 @@ public class LoginDTO {
         this.password = password;
     }
 
-    // Metodo toString per rappresentare l'oggetto sotto forma di stringa
     @Override
     public String toString() {
         return "LoginDTO [email=" + email + ", password=" + password + "]";

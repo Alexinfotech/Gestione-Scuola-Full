@@ -5,12 +5,13 @@ import java.sql.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import it.molinari.model.UtenteDTO;
+import it.molinari.DTO.UtenteDTO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+
 
 @WebServlet("/UtenteServletParcheggio")
 public class UtenteServletParcheggio extends HttpServlet {

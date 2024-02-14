@@ -1,13 +1,13 @@
-package it.molinari.DTO;
-import it.molinari.DTO.UtenteDTO;
+package it.molinari.DAO;
+import it.molinari.DAO.Utente;
 
-public class UtenteDTO {
+public class Utente {
 	private Integer id;
 	private String nome;
 	private String cognome;
 	private String email;
 	private String codiceFiscale;
-    private String dataNascita;
+    private java.util.Date dataNascita;
 	private String comuneDiNascita;
 	private String provincia;
 	private String comuneDiResidenza;
@@ -15,7 +15,7 @@ public class UtenteDTO {
 	private String numeroCivico;
 	private String cap;
 	private String sesso;
-	private static String apiToken = "120d80c4786d1f557e2ca6b3dc2a487b507c99236d8cf1666e39164369d84777556";
+
 
 	public Integer getId() {
 		return id;
@@ -58,11 +58,11 @@ public class UtenteDTO {
 	}
 
 
-	public String getDataNascita() {
+	public java.util.Date getDataNascita() {
         return dataNascita;
     }
 
-    public void setDataNascita(String dataNascita) {
+    public void setDataNascita(java.util.Date dataNascita) {
         this.dataNascita = dataNascita;
     }
 
@@ -120,14 +120,6 @@ public class UtenteDTO {
 
 	public void setSesso(String sesso) {
 		this.sesso = sesso;
-	}
-
-	public static String getApiToken() {
-		return apiToken;
-	}
-
-	public static void setApiToken(String token) {
-		apiToken = token;
 	}
 
 	@Override

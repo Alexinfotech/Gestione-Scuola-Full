@@ -1,4 +1,4 @@
-<%@page import="it.molinari.model.UtenteDTO"%>
+<%@page import="it.molinari.DTO.UtenteDTO"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 
 <%
@@ -8,9 +8,8 @@ String nome = utente != null && utente.getNome() != null ? utente.getNome() : ""
 String cognome = utente != null && utente.getCognome() != null ? utente.getCognome() : "";
 
 String email = utente != null && utente.getEmail() != null ? utente.getEmail() : "";
-String dataNascitaStr = utente != null && utente.getDataNascita() != null
-		? new java.text.SimpleDateFormat("yyyy-MM-dd").format(utente.getDataNascita())
-		: "";
+String dataNascitaStr = utente != null && utente.getDataNascita() != null ? utente.getDataNascita() : "";
+
 String comuneDiNascita = utente != null && utente.getComuneDiNascita() != null ? utente.getComuneDiNascita() : "";
 
 String comuneDiResidenza = utente != null && utente.getComuneDiResidenza() != null ? utente.getComuneDiResidenza() : "";

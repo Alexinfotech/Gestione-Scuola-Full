@@ -1,7 +1,5 @@
-package it.molinari.connessione;
+package it.molinari.DAO;
 import java.sql.Date;
-
-import it.molinari.model.UtenteDTO;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -11,14 +9,16 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GestioneUtenti {
+import it.molinari.DAO.UtentiDAO;
+
+public class UtentiDAO {
 	private static final String drive = "com.mysql.cj.jdbc.Driver";
 
 	private static final String url = "jdbc:mysql://151.48.169.77:3306/gestionaleScolastico?serverTimezone=UTC";
 	private static final String login = "alex";
 	private static final String paswd = "tmax2011";
 
-	public GestioneUtenti() {
+	public UtentiDAO() {
 	}
 
 	public static void main(String[] args) throws SQLException {
@@ -26,7 +26,7 @@ public class GestioneUtenti {
 		String query = "SELECT * FROM utenti";
 		try (Statement statement = connection.createStatement(); ResultSet resultSet = statement.executeQuery(query)) {
 			while (resultSet.next()) {
-				UtenteDTO utente = new UtenteDTO();
+				Utente utente = new Utente();
 				utente.setCodiceFiscale(resultSet.getString("codiceFiscale"));
 				utente.setNome(resultSet.getString("nome"));
 				utente.setCognome(resultSet.getString("cognome"));
@@ -60,15 +60,14 @@ public class GestioneUtenti {
 		}
 		return connection;
 	}
-	public List<UtenteDTO> recuperaUtenti() throws SQLException, ClassNotFoundException {
-	    List<UtenteDTO> listaUtenti = new ArrayList<>();
+	public List<Utente> recuperaUtenti() throws SQLException, ClassNotFoundException {
+	    List<Utente> listaUtenti = new ArrayList<>();
 	    String sql = "SELECT * FROM utenti";
 	    try (Connection conn = getConnection();
 	         PreparedStatement stmt = conn.prepareStatement(sql);
 	         ResultSet resultSet = stmt.executeQuery()) {
 	        while (resultSet.next()) {
-	            UtenteDTO utente = new UtenteDTO();
-	            // Imposta i campi di utente basandoti sui risultati della query
+	            Utente utente = new Utente();
 	            utente.setCodiceFiscale(resultSet.getString("codiceFiscale"));
 	            utente.setNome(resultSet.getString("nome"));
 	            utente.setCognome(resultSet.getString("cognome"));
@@ -86,7 +85,7 @@ public class GestioneUtenti {
 	    return listaUtenti;
 	}
 
-	public void inserisciUtente(UtenteDTO utente) throws SQLException, ClassNotFoundException {
+	public void inserisciUtente(Utente utente) throws SQLException, ClassNotFoundException {
 		String sql = "INSERT INTO utenti (codiceFiscale, nome, cognome, email, dataNascita, comuneDiNascita, provincia, comuneDiResidenza, via, numeroCivico, cap) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		try (Connection conn = getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
 			stmt.setString(1, utente.getCodiceFiscale());
@@ -105,14 +104,14 @@ public class GestioneUtenti {
 	}
 
 	// CREATE
-	public void createUtente(UtenteDTO utente) throws SQLException {
+	public void createUtente(Utente utente) throws SQLException {
 		String sql = "INSERT INTO utente  (codiceFiscale, nome, cognome, email, dataNascita, comuneDiNascita, provincia, comuneDiResidenza, via, numeroCivico, cap) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		try (Connection conn = getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
 			stmt.setString(1, utente.getCodiceFiscale());
 			stmt.setString(2, utente.getNome());
 			stmt.setString(3, utente.getCognome());
 			stmt.setString(4, utente.getEmail());
-			stmt.setDate(5, utente.getDataNascita());
+			stmt.setDate(5, (Date) utente.getDataNascita());
 			stmt.setString(6, utente.getComuneDiNascita());
 			stmt.setString(7, utente.getProvincia());
 			stmt.setString(8, utente.getComuneDiResidenza());
@@ -121,19 +120,17 @@ public class GestioneUtenti {
 			stmt.setString(11, utente.getCap());
 			stmt.executeUpdate();
 		}
-		// Metodi aggiuntivi per leggere, aggiornare ed eliminare utenti dal DB
 	}
 	// READ
 
-	public UtenteDTO getUtente(String codiceFiscale) throws SQLException {
-		// Correzione: la query SQL dovrebbe riferirsi alla tabella degli utenti, non a
-		// "city"
+	public Utente getUtente(String codiceFiscale) throws SQLException {
+		
 		String sql = "SELECT * FROM utenti WHERE codiceFiscale = ?";
 		try (Connection conn = getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
 			stmt.setString(1, codiceFiscale);
 			try (ResultSet resultSet = stmt.executeQuery()) {
 				if (resultSet.next()) {
-					UtenteDTO utente = new UtenteDTO();
+					Utente utente = new Utente();
 					utente.setCodiceFiscale(resultSet.getString("codiceFiscale"));
 					utente.setNome(resultSet.getString("nome"));
 					utente.setCognome(resultSet.getString("cognome"));
@@ -145,17 +142,16 @@ public class GestioneUtenti {
 					utente.setVia(resultSet.getString("via"));
 					utente.setNumeroCivico(resultSet.getString("numeroCivico"));
 					utente.setCap(resultSet.getString("cap"));
-					// Se ci sono altri campi, aggiungerli qui
 
 					return utente;
 				}
 			}
 		}
-		return null; // Nessun utente trovato con il codice fiscale specificato
+		return null; 
 	}
 	// UPDATE
 
-	public void updateUtente(UtenteDTO utente) throws SQLException {
+	public void updateUtente(Utente utente) throws SQLException {
 	    String sql = "UPDATE utenti SET nome = ?, cognome = ?, email = ?, dataNascita = ?, " + 
 	                 "comuneDiNascita = ?, provincia = ?, comuneDiResidenza = ?, via = ?, " +
 	                 "numeroCivico = ?, cap = ? WHERE codiceFiscale = ?";

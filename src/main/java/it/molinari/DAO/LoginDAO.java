@@ -1,11 +1,11 @@
-package it.molinari.connessione;
+package it.molinari.DAO;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class GestioneLogin {
+public class LoginDAO {
     private static final String DRIVER = "com.mysql.cj.jdbc.Driver";
     private static final String URL = "jdbc:mysql://151.48.169.77:3306/gestionaleScolastico?serverTimezone=UTC";
     private static final String USER = "alex";
@@ -27,7 +27,7 @@ public class GestioneLogin {
         String sql = "INSERT INTO login (email, password) VALUES (?, ?)";
         try (Connection conn = getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, email);
-            stmt.setString(2, password); // Directly using the password without hashing
+            stmt.setString(2, password); 
             stmt.executeUpdate();
         }
     }
@@ -39,7 +39,7 @@ public class GestioneLogin {
             ResultSet resultSet = stmt.executeQuery();
             if (resultSet.next()) {
                 String storedPassword = resultSet.getString("password");
-                return password.equals(storedPassword); // Direct comparison without hashing
+                return password.equals(storedPassword); 
             }
         }
         return false;

@@ -1,21 +1,23 @@
 package it.molinari.controller;
-
-import it.molinari.model.UtenteDTO;
-import it.molinari.connessione.GestioneUtenti;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.util.List;
 
+import it.molinari.DTO.UtenteDTO;
+import it.molinari.service.UtenteService;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
+
+
 @WebServlet("/UtenteServletDB")
 public class UtenteServletDB extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private GestioneUtenti gestioneUtenti = new GestioneUtenti();
+	private UtenteService gestioneUtenti = new UtenteService();
 
 	public UtenteServletDB() {
 		super();
@@ -44,7 +46,7 @@ public class UtenteServletDB extends HttpServlet {
 				request.getRequestDispatcher("views/utente/Search.jsp").forward(request, response);
 				break;
 			case "list":
-				List<UtenteDTO> listaUtenti = gestioneUtenti.recuperaUtenti();
+				List<UtenteDTO> listaUtenti = gestioneUtenti.ottieniTuttiGliUtenti();
 				request.setAttribute("listaUtenti", listaUtenti);
 				request.getRequestDispatcher("views/utente/listaUtenti.jsp").forward(request, response);
 				break;
@@ -74,7 +76,7 @@ public class UtenteServletDB extends HttpServlet {
 				break;
 			case "delete":
 				String codiceFiscaleToDelete = request.getParameter("codiceFiscale");
-				gestioneUtenti.deleteUtente(codiceFiscaleToDelete);
+				gestioneUtenti.eliminaUtente(codiceFiscaleToDelete);
 				response.sendRedirect("UtenteServletDB?action=list");
 				break;
 			default:
@@ -110,7 +112,6 @@ public class UtenteServletDB extends HttpServlet {
             } else if ("update".equals(action)) {
                 doPut(request, response); // Chiamata diretta a doPut per l'aggiornamento
             } else {
-                // Gestione azioni non supportate
                 request.setAttribute("errore", "Azione non supportata.");
                 request.getRequestDispatcher("views/errore.jsp").forward(request, response);
             }
@@ -123,21 +124,16 @@ public class UtenteServletDB extends HttpServlet {
 
 	@Override
 	protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// Prendi il codice fiscale dall'URL o dal corpo della richiesta, a seconda di
-		// come è strutturata la tua richiesta PUT.
+		
 		String codiceFiscale = req.getParameter("codiceFiscale");
 		try {
-			// Crea un utente aggiornato basato sui parametri della richiesta
 			UtenteDTO utenteAggiornato = creaUtenteDTO(req);
 
-			// Controlla se l'utente esiste già nel database
 			UtenteDTO utenteEsistente = gestioneUtenti.getUtente(codiceFiscale);
 			if (utenteEsistente != null) {
-				// Aggiorna l'utente nel database
-				gestioneUtenti.updateUtente(utenteAggiornato);
+				gestioneUtenti.aggiornaUtente(utenteAggiornato);
 				resp.sendRedirect("UtenteServletDB?action=list");
 			} else {
-				// Imposta un messaggio di errore se l'utente non è trovato
 				req.setAttribute("errore", "Utente non trovato per il codice fiscale: " + codiceFiscale);
 				req.getRequestDispatcher("views/errore.jsp").forward(req, resp);
 			}
@@ -152,12 +148,12 @@ public class UtenteServletDB extends HttpServlet {
 			throws ServletException, IOException {
 		String codiceFiscale = request.getParameter("codiceFiscale");
 		try {
-			gestioneUtenti.deleteUtente(codiceFiscale);
-			response.sendRedirect("UtenteServletDB?action=list");
+			gestioneUtenti.eliminaUtente(codiceFiscale);
 		} catch (SQLException e) {
-			request.setAttribute("errore", "Errore durante l'eliminazione dell'utente");
-			request.getRequestDispatcher("views/errore.jsp").forward(request, response);
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+		response.sendRedirect("UtenteServletDB?action=list");
 	}
 
 	private UtenteDTO creaUtenteDTO(HttpServletRequest req) {

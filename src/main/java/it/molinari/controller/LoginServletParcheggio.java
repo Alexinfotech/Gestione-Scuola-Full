@@ -11,11 +11,11 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 @WebServlet("/LoginServlet")
-public class LoginServlet extends HttpServlet {
+public class LoginServletParcheggio extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private Map<String, String> userCredentials = new HashMap<>();
 
-	public LoginServlet() {
+	public LoginServletParcheggio() {
 		super();
 	}
 
