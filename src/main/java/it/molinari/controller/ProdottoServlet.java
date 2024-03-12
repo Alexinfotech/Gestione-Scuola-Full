@@ -87,12 +87,18 @@ public class ProdottoServlet extends HttpServlet {
                         request.getRequestDispatcher("views/errore.jsp").forward(request, response);
                     }
                     break;
-
                 case "delete":
+                    String idToDelete = request.getParameter("id");
+                    String ruoloUtente = (String) request.getSession().getAttribute("ruolo"); // Recupera il ruolo dall'oggetto sessione
+                    gestioneProdotto.delete(idToDelete, ruoloUtente); // Passa l'ID e il ruolo al metodo delete
+                    response.sendRedirect("ProdottoServlet?action=list");
+                    break;
+
+                /*case "delete":
                     String idToDelete = request.getParameter("id");
                     gestioneProdotto.delete(idToDelete);
                     response.sendRedirect("ProdottoServlet?action=list");
-                    break;
+                    break;*/
                 default:
                     request.setAttribute("errore", "Azione non riconosciuta.");
                     request.getRequestDispatcher("views/errore.jsp").forward(request, response);
@@ -134,7 +140,38 @@ public class ProdottoServlet extends HttpServlet {
             request.getRequestDispatcher("views/errore.jsp").forward(request, response);
         }
     }
-*/@Override
+    
+*/
+    @Override
+    protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String idStr = request.getParameter("id");
+        // Ottieni il ruolo dalla sessione HTTP
+        String ruoloUtente = (String) request.getSession().getAttribute("ruolo");
+
+        try {
+            // Assicurati che l'ID sia fornito e valido
+            int idInt = Integer.parseInt(idStr);
+            
+            // Passa l'ID e il ruolo al metodo delete della service
+            gestioneProdotto.delete(idInt, ruoloUtente);
+
+            // Redireziona l'utente alla lista dei prodotti dopo l'eliminazione
+            response.sendRedirect("ProdottoServlet?action=list");
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+            request.setAttribute("errorMessage", "Formato ID non valido. Assicurati che l'ID sia un numero.");
+            request.getRequestDispatcher("/views/errorPage.jsp").forward(request, response);
+        } catch (SecurityException se) {
+            // Gestione del caso in cui l'utente non ha il permesso di eliminare il prodotto
+            request.setAttribute("errorMessage", se.getMessage());
+            request.getRequestDispatcher("/views/errorPage.jsp").forward(request, response);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            request.setAttribute("errorMessage", "Errore durante l'eliminazione del prodotto dal database.");
+            request.getRequestDispatcher("/views/errorPage.jsp").forward(request, response);
+        }
+    }
+@Override
 protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     String action = request.getParameter("action");
 
@@ -192,7 +229,7 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
     }
 
 
-    @Override
+ /*   @Override
     protected void doDelete(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String idStr = request.getParameter("id");
@@ -218,7 +255,9 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
         }
     }
  
-
+*/
+    
+    
     private ProdottoDTO creaProdottoDTO(HttpServletRequest req) {
         ProdottoDTO prodotto = new ProdottoDTO();
         prodotto.setNomeProdotto(req.getParameter("nomeProdotto"));

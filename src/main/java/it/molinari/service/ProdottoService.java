@@ -30,10 +30,15 @@ public class ProdottoService {
         gestioneProdotto.update(prodotto);
     }
 
-    public void delete(String id) throws SQLException {
+    /*public void delete(String id) throws SQLException {
+        gestioneProdotto.delete(id);
+    }*/
+    public void delete(String id, String ruolo) throws SQLException, SecurityException {
+        if (!Ruolo.MAGAZZINIERE.equals(ruolo)) {
+            throw new SecurityException("Operazione non autorizzata: solo i magazzinieri possono eliminare prodotti.");
+        }
         gestioneProdotto.delete(id);
     }
-
     public void inserisci(ProdottoDTO prodottoDTO) throws SQLException, ClassNotFoundException {
         ProdottoDTO prodotto = ProdottoDTOToProdotto(prodottoDTO);
         gestioneProdotto.create(prodotto);

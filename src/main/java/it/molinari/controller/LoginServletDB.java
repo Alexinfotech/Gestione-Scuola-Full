@@ -47,11 +47,11 @@ public class LoginServletDB extends HttpServlet {
             String password = request.getParameter("password");
 
             try {
-                String role = gestionelogin.validateUser(email, password);
-                if (role != null) {
+                String ruolo = gestionelogin.validateUser(email, password);
+                if (ruolo != null) {
                     // Login riuscito, memorizza l'email e il ruolo in sessione
                     request.getSession().setAttribute("email", email);
-                    request.getSession().setAttribute("role", role);
+                    request.getSession().setAttribute("ruolo", ruolo);
                     response.sendRedirect("views/welcome.jsp");
                 } else {
                     // Login fallito, reindirizza alla pagina di login con un messaggio di errore
