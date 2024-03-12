@@ -1,4 +1,3 @@
-
 package it.molinari.controller;
 
 import java.io.IOException;
@@ -13,51 +12,57 @@ import jakarta.servlet.http.HttpServletResponse;
 
 @WebServlet("/LoginServletDB")
 public class LoginServletDB extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-	private LoginDAO gestionelogin = new LoginDAO();
+    private static final long serialVersionUID = 1L;
+    private LoginDAO gestionelogin = new LoginDAO();
 
-	public LoginServletDB() {
-		super();
-	}
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-	        throws ServletException, IOException {
-	    String action = request.getParameter("action");
-	    
-	    if ("register".equals(action)) {
-	        String newEmail = request.getParameter("newEmail");
-	        String newPassword = request.getParameter("newPassword"); // Considera di hashare la password in futuro
-	        
-	        try {
-	            if (!gestionelogin.emailExists(newEmail)) {
-	                gestionelogin.registerNewUser(newEmail, newPassword);
-	                response.sendRedirect("index.jsp"); // Reindirizza alla pagina di login dopo la registrazione
-	            } else {
-	                request.setAttribute("errore", "Email già in uso!");
-	                request.getRequestDispatcher("registrazione.jsp").forward(request, response);
-	            }
-	        } catch (SQLException e) {
-	            e.printStackTrace(); // Log dell'errore
-	            request.setAttribute("errore", "Errore nel database durante la registrazione.");
-	            request.getRequestDispatcher("error.jsp").forward(request, response);
-	        }
-	    } else if ("login".equals(action)) {
-	        String email = request.getParameter("email");
-	        String password = request.getParameter("password");
-	        
-	        try {
-	            if (gestionelogin.validateUser(email, password)) {
-	                request.getSession().setAttribute("email", email); // Memorizza l'email in sessione
-	                response.sendRedirect("views/welcome.jsp"); // Reindirizza alla pagina di benvenuto
-	            } else {
-	                request.setAttribute("errore", "Email o password errata!");
-	                request.getRequestDispatcher("login.jsp").forward(request, response);
-	            }
-	        } catch (SQLException e) {
-	            e.printStackTrace(); // Log dell'errore
-	            request.setAttribute("errore", "Errore nel database durante il login.");
-	            request.getRequestDispatcher("error.jsp").forward(request, response);
-	        }
-	    }
-	}
+    public LoginServletDB() {
+        super();
+    }
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String action = request.getParameter("action");
+
+        if ("register".equals(action)) {
+            // Registrazione di un nuovo utente
+            String newEmail = request.getParameter("newEmail");
+            String newPassword = request.getParameter("newPassword");
+
+            try {
+                if (!gestionelogin.emailExists(newEmail)) {
+                    gestionelogin.registerNewUser(newEmail, newPassword);
+                    response.sendRedirect("index.jsp");
+                } else {
+                    request.setAttribute("errore", "Email già in uso!");
+                    request.getRequestDispatcher("registrazione.jsp").forward(request, response);
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+                request.setAttribute("errore", "Errore nel database durante la registrazione.");
+                request.getRequestDispatcher("error.jsp").forward(request, response);
+            }
+        } else if ("login".equals(action)) {
+            // Login di un utente esistente
+            String email = request.getParameter("email");
+            String password = request.getParameter("password");
+
+            try {
+                String role = gestionelogin.validateUser(email, password);
+                if (role != null) {
+                    // Login riuscito, memorizza l'email e il ruolo in sessione
+                    request.getSession().setAttribute("email", email);
+                    request.getSession().setAttribute("role", role);
+                    response.sendRedirect("views/welcome.jsp");
+                } else {
+                    // Login fallito, reindirizza alla pagina di login con un messaggio di errore
+                    request.setAttribute("errore", "Email o password errata!");
+                    request.getRequestDispatcher("login.jsp").forward(request, response);
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+                request.setAttribute("errore", "Errore nel database durante il login.");
+                request.getRequestDispatcher("error.jsp").forward(request, response);
+            }
+        }
+    }
 }
-

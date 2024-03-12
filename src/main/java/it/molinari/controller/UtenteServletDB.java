@@ -4,7 +4,7 @@ import java.sql.Date;
 import java.sql.SQLException;
 import java.util.List;
 
-import it.molinari.DTO.UtenteDTO;
+import it.molinari.model.UtenteDTO;
 import it.molinari.service.UtenteService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -46,13 +46,13 @@ public class UtenteServletDB extends HttpServlet {
 				request.getRequestDispatcher("views/utente/Search.jsp").forward(request, response);
 				break;
 			case "list":
-				List<UtenteDTO> listaUtenti = gestioneUtenti.ottieniTuttiGliUtenti();
+				List<UtenteDTO> listaUtenti = gestioneUtenti.recupera();
 				request.setAttribute("listaUtenti", listaUtenti);
 				request.getRequestDispatcher("views/utente/listaUtenti.jsp").forward(request, response);
 				break;
 			case "dettaglio":
 				String codiceFiscaleDettaglio = request.getParameter("codiceFiscale");
-				UtenteDTO utenteDettaglio = gestioneUtenti.getUtente(codiceFiscaleDettaglio);
+				UtenteDTO utenteDettaglio = gestioneUtenti.get(codiceFiscaleDettaglio);
 				if (utenteDettaglio != null) {
 					request.setAttribute("utente", utenteDettaglio);
 					request.getRequestDispatcher("/views/utente/modificaUtente.jsp").forward(request, response);
@@ -65,7 +65,7 @@ public class UtenteServletDB extends HttpServlet {
 
 			case "search":
 				String codiceFiscale = request.getParameter("codiceFiscale");
-				UtenteDTO utente = gestioneUtenti.getUtente(codiceFiscale);
+				UtenteDTO utente = gestioneUtenti.get(codiceFiscale);
 				if (utente != null) {
 					request.setAttribute("utente", utente);
 					request.getRequestDispatcher("views/utente/modificaUtente.jsp").forward(request, response);
@@ -76,7 +76,7 @@ public class UtenteServletDB extends HttpServlet {
 				break;
 			case "delete":
 				String codiceFiscaleToDelete = request.getParameter("codiceFiscale");
-				gestioneUtenti.eliminaUtente(codiceFiscaleToDelete);
+				gestioneUtenti.delete(codiceFiscaleToDelete);
 				response.sendRedirect("UtenteServletDB?action=list");
 				break;
 			default:
@@ -100,9 +100,9 @@ public class UtenteServletDB extends HttpServlet {
             if ("create".equals(action)) {
                 UtenteDTO utente = creaUtenteDTO(request);
                 // Verifica se l'utente esiste già
-                if (gestioneUtenti.getUtente(codiceFiscale) == null) {
+                if (gestioneUtenti.get(codiceFiscale) == null) {
                     // Se l'utente non esiste, procedi con la creazione
-                    gestioneUtenti.inserisciUtente(utente);
+                    gestioneUtenti.inserisci(utente);
                     response.sendRedirect("UtenteServletDB?action=list");
                 } else {
                     // Se l'utente esiste già, mostra un messaggio di errore
@@ -129,9 +129,9 @@ public class UtenteServletDB extends HttpServlet {
 		try {
 			UtenteDTO utenteAggiornato = creaUtenteDTO(req);
 
-			UtenteDTO utenteEsistente = gestioneUtenti.getUtente(codiceFiscale);
+			UtenteDTO utenteEsistente = gestioneUtenti.get(codiceFiscale);
 			if (utenteEsistente != null) {
-				gestioneUtenti.aggiornaUtente(utenteAggiornato);
+				gestioneUtenti.update(utenteAggiornato);
 				resp.sendRedirect("UtenteServletDB?action=list");
 			} else {
 				req.setAttribute("errore", "Utente non trovato per il codice fiscale: " + codiceFiscale);
@@ -148,7 +148,7 @@ public class UtenteServletDB extends HttpServlet {
 			throws ServletException, IOException {
 		String codiceFiscale = request.getParameter("codiceFiscale");
 		try {
-			gestioneUtenti.eliminaUtente(codiceFiscale);
+			gestioneUtenti.delete(codiceFiscale);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -166,11 +166,11 @@ public class UtenteServletDB extends HttpServlet {
 		String dataNascitaStr = req.getParameter("dataNascita");
 		Date dataNascita = null;
 		if (dataNascitaStr != null && !dataNascitaStr.isEmpty()) {
-			try {
-				dataNascita = Date.valueOf(dataNascitaStr);
-			} catch (IllegalArgumentException e) {
-				// Qui Gestirò l'eccezione se necessario
-			}
+		    try {
+		        dataNascita = Date.valueOf(dataNascitaStr);
+		    } catch (IllegalArgumentException e) {
+		        // Qui Gestirò l'eccezione se necessario
+		    }
 		}
 		utente.setDataNascita(dataNascita);
 		utente.setComuneDiNascita(req.getParameter("comuneDiNascita"));

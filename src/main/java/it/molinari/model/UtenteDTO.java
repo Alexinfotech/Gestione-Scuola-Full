@@ -1,5 +1,6 @@
-package it.molinari.DTO;
-import it.molinari.DTO.UtenteDTO;
+package it.molinari.model;
+
+import it.molinari.model.UtenteDTO;
 
 public class UtenteDTO {
 	private Integer id;
@@ -7,7 +8,7 @@ public class UtenteDTO {
 	private String cognome;
 	private String email;
 	private String codiceFiscale;
-    private String dataNascita;
+	private java.util.Date dataNascita;
 	private String comuneDiNascita;
 	private String provincia;
 	private String comuneDiResidenza;
@@ -57,14 +58,13 @@ public class UtenteDTO {
 		this.codiceFiscale = codiceFiscale;
 	}
 
+	public java.util.Date getDataNascita() {
+		return dataNascita;
+	}
 
-	public String getDataNascita() {
-        return dataNascita;
-    }
-
-    public void setDataNascita(String dataNascita) {
-        this.dataNascita = dataNascita;
-    }
+	public void setDataNascita(java.util.Date dataNascita) {
+		this.dataNascita = dataNascita;
+	}
 
 	public String getComuneDiNascita() {
 		return comuneDiNascita;
@@ -138,4 +138,3 @@ public class UtenteDTO {
 				+ via + ", numeroCivico=" + numeroCivico + ", cap=" + cap + "]";
 	}
 }
-

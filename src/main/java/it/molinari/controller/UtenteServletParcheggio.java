@@ -5,7 +5,7 @@ import java.sql.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import it.molinari.DTO.UtenteDTO;
+import it.molinari.model.UtenteDTO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;

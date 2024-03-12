@@ -1,65 +1,67 @@
 package it.molinari.service;
 
-import it.molinari.DAO.UtentiDAO;
-import it.molinari.DAO.Utente;
-import it.molinari.DTO.UtenteDTO;
-
-import java.sql.Date;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import it.molinari.DAO.UtenteDAO;
+import it.molinari.model.UtenteDTO;
 
 public class UtenteService {
 
-    private UtentiDAO gestioneUtenti;
+    private UtenteDAO gestioneUtenti;
 
     public UtenteService() {
-        this.gestioneUtenti = new UtentiDAO();
+        this.gestioneUtenti = new UtenteDAO();
     }
 
-    public UtenteDTO getUtente(String codiceFiscale) throws SQLException{
-        Utente utente = gestioneUtenti.getUtente(codiceFiscale);
+    public UtenteDTO get(String codiceFiscale) throws SQLException {
+        UtenteDTO utente = gestioneUtenti.get(codiceFiscale);
         return UtenteToUtenteDTO(utente);
     }
 
-    public void inserisciUtente(UtenteDTO utenteDTO) throws SQLException, ClassNotFoundException{
-        Utente utente = UtenteDTOToUtente(utenteDTO);
-        gestioneUtenti.inserisciUtente(utente);
+    public void create(UtenteDTO utenteDTO) throws SQLException {
+        UtenteDTO utente = UtenteDTOToUtente(utenteDTO);
+        gestioneUtenti.inserisci(utente);
     }
 
-    public void aggiornaUtente(UtenteDTO utenteDTO) throws SQLException{
-        Utente utente = UtenteDTOToUtente(utenteDTO);
-        gestioneUtenti.updateUtente(utente);
+    public void update(UtenteDTO utenteDTO) throws SQLException {
+        UtenteDTO utente = UtenteDTOToUtente(utenteDTO);
+        gestioneUtenti.update(utente);
     }
 
-    public void eliminaUtente(String codiceFiscale) throws SQLException{
-        gestioneUtenti.deleteUtente(codiceFiscale);
+    public void delete(String codiceFiscale) throws SQLException {
+        gestioneUtenti.delete(codiceFiscale);
     }
 
-    public List<UtenteDTO> ottieniTuttiGliUtenti() throws ClassNotFoundException, SQLException{
-        List<Utente> listaUtenti = gestioneUtenti.recuperaUtenti();
+    public void inserisci(UtenteDTO utenteDTO) throws SQLException, ClassNotFoundException {
+        UtenteDTO utente = UtenteDTOToUtente(utenteDTO);
+        gestioneUtenti.inserisci(utente);
+    }
+
+    public List<UtenteDTO> recupera() throws ClassNotFoundException, SQLException {
+        List<UtenteDTO> listaUtenti = gestioneUtenti.recupera();
         List<UtenteDTO> listaUtentiDTO = new ArrayList<>();
-        for (Utente utente : listaUtenti) {
-            UtenteDTO dto = UtenteToUtenteDTO(utente); // Usa il metodo corretto
+        for (UtenteDTO utente : listaUtenti) {
+            UtenteDTO dto = UtenteToUtenteDTO(utente);
             listaUtentiDTO.add(dto);
-           
         }
         return listaUtentiDTO;
     }
 
-    private UtenteDTO UtenteToUtenteDTO(Utente utente) {
+    private UtenteDTO UtenteToUtenteDTO(UtenteDTO utente) {
+        if (utente == null) {
+            return null;
+        }
+
         UtenteDTO utenteDTO = new UtenteDTO();
         utenteDTO.setId(utente.getId());
         utenteDTO.setNome(utente.getNome());
         utenteDTO.setCognome(utente.getCognome());
         utenteDTO.setEmail(utente.getEmail());
         utenteDTO.setCodiceFiscale(utente.getCodiceFiscale());
-        if (utente.getDataNascita() != null) {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-            utenteDTO.setDataNascita(sdf.format(utente.getDataNascita()));
-        }        utenteDTO.setComuneDiNascita(utente.getComuneDiNascita());
+        utenteDTO.setComuneDiNascita(utente.getComuneDiNascita());
+        utenteDTO.setDataNascita(utente.getDataNascita());
         utenteDTO.setProvincia(utente.getProvincia());
         utenteDTO.setComuneDiResidenza(utente.getComuneDiResidenza());
         utenteDTO.setVia(utente.getVia());
@@ -69,22 +71,15 @@ public class UtenteService {
         return utenteDTO;
     }
 
-    private Utente UtenteDTOToUtente(UtenteDTO utenteDTO) {
-        Utente utente = new Utente();
+    private UtenteDTO UtenteDTOToUtente(UtenteDTO utenteDTO) {
+        UtenteDTO utente = new UtenteDTO();
         utente.setId(utenteDTO.getId());
         utente.setNome(utenteDTO.getNome());
         utente.setCognome(utenteDTO.getCognome());
         utente.setEmail(utenteDTO.getEmail());
         utente.setCodiceFiscale(utenteDTO.getCodiceFiscale());
-        if (utenteDTO.getDataNascita() != null && !utenteDTO.getDataNascita().isEmpty()) {
-            try {
-                Date dataNascita = Date.valueOf(utenteDTO.getDataNascita());
-                utente.setDataNascita(dataNascita);
-            } catch (IllegalArgumentException e) {
-                e.printStackTrace();
-            }
-        }
         utente.setComuneDiNascita(utenteDTO.getComuneDiNascita());
+        utente.setDataNascita(utenteDTO.getDataNascita());
         utente.setProvincia(utenteDTO.getProvincia());
         utente.setComuneDiResidenza(utenteDTO.getComuneDiResidenza());
         utente.setVia(utenteDTO.getVia());

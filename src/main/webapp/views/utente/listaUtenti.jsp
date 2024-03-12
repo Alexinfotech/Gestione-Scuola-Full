@@ -1,4 +1,4 @@
-<%@page import="it.molinari.DTO.UtenteDTO"%>
+<%@page import="it.molinari.model.UtenteDTO"%>
 <%@page import="java.util.List"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 
@@ -82,7 +82,7 @@
 							href="UtenteServletDB?action=dettaglio&codiceFiscale=<%=utente.getCodiceFiscale()%>"
 							class="black-bold-text">Modifica</a></td>
 						<td><a
-							href="UtenteServlet?action=delete&codiceFiscale=<%=utente.getCodiceFiscale()%>"
+							href="UtenteServletDB?action=delete&codiceFiscale=<%=utente.getCodiceFiscale()%>"
 							onclick="return confermaEliminazione('<%=utente.getNome()%>', '<%=utente.getCodiceFiscale()%>');"
 							class="black-bold-text">Elimina</a></td>
 					</tr>
