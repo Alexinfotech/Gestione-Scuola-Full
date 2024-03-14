@@ -8,6 +8,7 @@
                 <ul class="list-inline">
                     <li class="list-inline-item"><a href="#" class="text-white">Home//</a></li>
                     <li class="list-inline-item"><a href="#" class="text-white">Profilo//</a></li>
+                    <li class="list-inline-item"><a href="../views/carrello/carrello.jsp" class="text-white">Logout</a></li>
                    
                     <li class="list-inline-item"><a href="index.jsp" class="text-white">Logout</a></li>
             

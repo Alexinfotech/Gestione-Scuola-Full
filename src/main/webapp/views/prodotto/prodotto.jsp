@@ -5,7 +5,7 @@
 ProdottoDTO prodotto = (ProdottoDTO) request.getAttribute("prodotto");
 String nomeProdotto = prodotto != null && prodotto.getNomeProdotto() != null ? prodotto.getNomeProdotto() : "";
 String prezzo = prodotto != null && prodotto.getPrezzo() != null ? prodotto.getPrezzo() : "";
-
+String quantita = prodotto != null && prodotto.getQuantita() != null ? String.valueOf(prodotto.getQuantita()) : "0";
 String descrizioneProdotto = prodotto != null && prodotto.getDescrizioneProdotto() != null
 		? prodotto.getDescrizioneProdotto()
 		: "";
@@ -38,8 +38,9 @@ String descrizioneProdotto = prodotto != null && prodotto.getDescrizioneProdotto
 						placeholder="Nome Prodotto">
 				</div>
 				<div class="form-group">
-					<input type="text" class="form-control" style="color: black;"
-						id="prezzo" name="prezzo" required placeholder="Prezzo">
+					<label for="prezzo">Prezzo</label> <input type="number"
+						class="form-control" id="prezzo" name="prezzo" required
+						placeholder="Prezzo" step="0.01">
 				</div>
 
 				<div class="form-group">
@@ -47,6 +48,25 @@ String descrizioneProdotto = prodotto != null && prodotto.getDescrizioneProdotto
 						id="descrizioneProdotto" name="descrizioneProdotto" required
 						placeholder="Descrizione Prodotto ">
 				</div>
+
+
+
+
+
+				<div class="form-group">
+					<input type="number" class="form-control" style="color: black;"
+						id="quantita" name="quantita" required
+						placeholder="Quantità Prodotto" min="0">
+				</div>
+
+
+
+
+
+
+
+
+
 
 				<div id="messaggi" style="color: red;"></div>
 

@@ -29,7 +29,10 @@ public class ProdottoService {
         ProdottoDTO prodotto = ProdottoDTOToProdotto(prodottoDTO);
         gestioneProdotto.update(prodotto);
     }
-
+    public void acquista(ProdottoDTO prodottoDTO) throws SQLException {
+        ProdottoDTO prodotto = ProdottoDTOToProdotto(prodottoDTO);
+        gestioneProdotto.acquista(prodotto);
+    }
     /*public void delete(String id) throws SQLException {
         gestioneProdotto.delete(id);
     }*/
@@ -64,6 +67,8 @@ public class ProdottoService {
         prodottoDTO.setPrezzo(prodotto.getPrezzo());
         prodottoDTO.setIva(prodotto.getIva());
         prodottoDTO.setDescrizioneProdotto(prodotto.getDescrizioneProdotto());
+        prodottoDTO.setQuantita(prodotto.getQuantita());
+
         return prodottoDTO;
     }
 
@@ -74,6 +79,8 @@ public class ProdottoService {
         prodotto.setPrezzo(prodottoDTO.getPrezzo());
         prodotto.setIva(prodottoDTO.getIva());
         prodotto.setDescrizioneProdotto(prodottoDTO.getDescrizioneProdotto());
+        prodotto.setQuantita(prodottoDTO.getQuantita());
+
         return prodotto;
     }
 }

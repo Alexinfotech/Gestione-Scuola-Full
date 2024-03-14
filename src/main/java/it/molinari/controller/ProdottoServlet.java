@@ -39,7 +39,7 @@ public class ProdottoServlet extends HttpServlet {
                 case "list":
                     List<ProdottoDTO> listaProdotto = gestioneProdotto.recupera();
                     request.setAttribute("listaProdotto", listaProdotto);
-                    request.getRequestDispatcher("views/prodotto/listaProdotto.jsp").forward(request, response);
+                    request.getRequestDispatcher("views/prodotto/listaProdotto2.jsp").forward(request, response);
                     break;
 
                 case "dettaglio":
@@ -63,6 +63,36 @@ public class ProdottoServlet extends HttpServlet {
                         request.getRequestDispatcher("/views/errorPage.jsp").forward(request, response);
                     }
                     break;
+                case "acquista":
+                    String prodottoIdStr = request.getParameter("prodottoId");
+                    if (prodottoIdStr != null && !prodottoIdStr.trim().isEmpty()) {
+                        try {
+                            // Converti l'ID del prodotto da String a int
+                            int prodottoId = Integer.parseInt(prodottoIdStr);
+                            // Supponiamo che tu abbia un metodo get(String id) che restituisce un ProdottoDTO dato un ID come stringa
+                            ProdottoDTO prodotto = gestioneProdotto.get(prodottoIdStr);
+                            if (prodotto != null) {
+                                gestioneProdotto.acquista(prodotto);
+                                response.sendRedirect("ProdottoServlet?action=list");
+                            } else {
+                                // Gestisci il caso in cui il prodotto con quell'ID non esiste
+                                request.setAttribute("errore", "Prodotto non trovato per l'ID: " + prodottoIdStr);
+                                request.getRequestDispatcher("views/errore.jsp").forward(request, response);
+                            }
+                        } catch (NumberFormatException e) {
+                            request.setAttribute("errore", "Formato ID non valido: " + prodottoIdStr);
+                            request.getRequestDispatcher("views/errore.jsp").forward(request, response);
+                        } catch (SQLException e) {
+                            request.setAttribute("errore", "Errore durante l'accesso al database: " + e.getMessage());
+                            request.getRequestDispatcher("views/errore.jsp").forward(request, response);
+                        }
+                    } else {
+                        request.setAttribute("errore", "ID del prodotto non fornito.");
+                        request.getRequestDispatcher("views/errore.jsp").forward(request, response);
+                    }
+                    break;
+
+
 
                 case "search":
                     String nomeProdotto = request.getParameter("nomeProdotto");
@@ -264,6 +294,7 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
         prodotto.setPrezzo(req.getParameter("prezzo"));
         prodotto.setIva(req.getParameter("iva"));
         prodotto.setDescrizioneProdotto(req.getParameter("descrizioneProdotto"));
+        prodotto.setQuantita(req.getParameter("quantita"));
 
         return prodotto;
     }

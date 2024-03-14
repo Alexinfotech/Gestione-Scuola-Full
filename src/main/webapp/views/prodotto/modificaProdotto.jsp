@@ -20,17 +20,22 @@ ProdottoDTO prodotto = (ProdottoDTO) request.getAttribute("prodotto");
                 <input type="hidden" name="id" value="<%= prodotto.getId() %>">
 
                 <div class="form-group">
-                    <label for="nomeProdotto">Nome Prodotto</label>
+                    <label for="nomeProdotto"><strong>Modifica Nome Prodotto</strong></label>
                     <input type="text" class="form-control" id="nomeProdotto" name="nomeProdotto" value="<%= prodotto.getNomeProdotto() %>" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="prezzo">Prezzo</label>
+                    <label for="prezzo"><strong>Modifica Prezzo</strong></label>
                     <input type="text" class="form-control" id="prezzo" name="prezzo" value="<%= prodotto.getPrezzo() %>" required>
                 </div>
+                <div class="form-group">
+					<label for="quantita"><strong>Modifica Quantita</strong></label> <input type="number"
+						class="form-control" id="quantita" name="quantita" step="0.01" value="<%= prodotto.getQuantita() %>" required>
+				
+				</div>
 
                 <div class="form-group">
-                    <label for="descrizioneProdotto">Descrizione Prodotto</label>
+                    <label for="descrizioneProdotto"><strong>Descrizione Prodotto</strong></label>
                     <textarea class="form-control" id="descrizioneProdotto" name="descrizioneProdotto" required><%= prodotto.getDescrizioneProdotto() %></textarea>
                 </div>
 

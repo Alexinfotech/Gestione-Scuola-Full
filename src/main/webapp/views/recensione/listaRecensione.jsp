@@ -3,7 +3,8 @@
 
 <%@page import="java.util.List"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
-
+<% String ruolo3 = (String) request.getSession().getAttribute("ruolo");
+%>
 
 
 <head>
@@ -26,7 +27,8 @@
 
 <script type="text/javascript">
 	function confermaEliminazione(testo, id) {
-		return confirm('Sei sicuro di voler eliminare la recensione ' + testo + '?');
+		return confirm('Sei sicuro di voler eliminare la recensione ' + testo
+				+ '?');
 	}
 </script>
 </head>
@@ -60,11 +62,16 @@
 					%>
 					<tr>
 						<td class="bold-text"><%=recensione.getTesto()%></td>
-
+						<%
+						if (Ruolo.AMMINISTRATORE.equals(ruolo3)) {
+						%>
 						<td><a
 							href="RecensioneServlet?action=delete&id=<%=recensione.getId()%>"
 							onclick="return confermaEliminazione('<%=recensione.getTesto()%>', '<%=recensione.getId()%>');"
 							class="black-bold-text">Elimina</a></td>
+						<%
+						}
+						%>
 					</tr>
 					<%
 					}

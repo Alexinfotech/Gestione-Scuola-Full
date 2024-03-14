@@ -115,7 +115,7 @@ public class RecensioneServlet extends HttpServlet {
                     request.getRequestDispatcher("views/errore.jsp").forward(request, response);
                 } else {
                     gestioneRecensione.delete(idToDelete);
-                    response.sendRedirect("RecensioneServlet?action=list");
+                    response.sendRedirect("ProdottoServlet?action=list");
                 }
                 break;
 			default:
@@ -131,7 +131,40 @@ public class RecensioneServlet extends HttpServlet {
 			e1.printStackTrace();
 		}
 	}
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+	        throws ServletException, IOException {
+	    String action = request.getParameter("action");
 
+	    try {
+	        if ("create".equals(action)) {
+	            // Recupero dell'email utente dalla sessione
+	            String email = (String) request.getSession().getAttribute("email");
+	            
+	            // Creazione dell'oggetto RecensioneDTO con le informazioni necessarie
+	            RecensioneDTO recensione = creaRecensioneDTO(request);
+
+	            // Aggiunta dell'email dell'utente al testo della recensione
+	            String testoConEmail = recensione.getTesto() + " - Recensito da: " + email;
+	            recensione.setTesto(testoConEmail);
+
+	            // Salvataggio della recensione tramite il servizio
+	            gestioneRecensione.create(recensione);
+
+	            // Redirezione o gestione della risposta
+                response.sendRedirect("ProdottoServlet?action=list");
+	        } else {
+	            request.setAttribute("errore", "Azione non supportata.");
+	            request.getRequestDispatcher("views/errore.jsp").forward(request, response);
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        request.setAttribute("errore", "Errore durante l'accesso al database: " + e.getMessage());
+	        request.getRequestDispatcher("views/errore.jsp").forward(request, response);
+	    }
+	}
+
+/*
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 	        throws ServletException, IOException {
@@ -157,7 +190,7 @@ public class RecensioneServlet extends HttpServlet {
 	        request.getRequestDispatcher("views/errore.jsp").forward(request, response);
 	    }
 	}
-
+*/
 
 	@Override
 	protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

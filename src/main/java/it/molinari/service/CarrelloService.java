@@ -2,36 +2,40 @@ package it.molinari.service;
 
 import java.sql.SQLException;
 import java.util.List;
+
 import it.molinari.DAO.CarrelloDAO;
 import it.molinari.model.CarrelloDTO;
+import it.molinari.model.ProdottoDTO;
 
-public class CarrelloService implements ServiceInterface<CarrelloDTO> {
-    private CarrelloDAO carrelloDAO = new CarrelloDAO();
+public class CarrelloService {
 
-    // Questo metodo potrebbe essere usato per recuperare i dettagli del carrello di un utente specifico.
-    public CarrelloDTO getCarrelloUtente(int idUtente) throws SQLException {
-        return carrelloDAO.getCarrelloUtente(idUtente);
+    private CarrelloDAO gestioneCarrello;
+
+    public CarrelloService() {
+        this.gestioneCarrello = new CarrelloDAO();
     }
 
-    @Override
-    public void create(CarrelloDTO carrello) throws SQLException {
-        carrelloDAO.create(carrello);
+    // Aggiungi un prodotto al carrello
+    public void aggiungiAlCarrello(int loginId, int prodottoId, int quantita) throws SQLException {
+        // Potresti voler verificare prima che la quantità richiesta sia disponibile
+        gestioneCarrello.create(loginId, prodottoId, quantita);
+        // Aggiorna la quantità disponibile del prodotto
+        // Questo richiederà una logica aggiuntiva per interagire con ProdottoDAO
     }
 
-    // Potresti non avere bisogno di un metodo di aggiornamento tradizionale per un carrello.
-    // Questo esempio è solo indicativo.
-    @Override
-    public void update(CarrelloDTO carrello) throws SQLException {
-        carrelloDAO.update(carrello);
+    // Rimuovi un prodotto dal carrello
+    public void rimuoviDalCarrello(String idCarrello) throws SQLException {
+        gestioneCarrello.delete(idCarrello);
     }
 
-    @Override
-    public void delete(int id) throws SQLException {
-        carrelloDAO.delete(id);
+    // Aggiorna la quantità di un prodotto nel carrello
+    public void aggiornaQuantita(String idCarrello, int nuovaQuantita) throws SQLException {
+        // Implementazione del metodo per aggiornare la quantità
     }
 
-    // Metodo per recuperare tutti i carrelli, potrebbe non essere necessario a seconda dell'uso.
-    public List<CarrelloDTO> recupera() throws SQLException {
-        return carrelloDAO.recupera();
+    // Recupera il carrello di un utente
+    public List<CarrelloDTO> recupera(int loginId) throws SQLException {
+        // Implementazione del metodo per recuperare il carrello di un utente specifico
+        return null;
     }
 }
