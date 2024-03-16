@@ -30,11 +30,20 @@ public class ProdottoService {
         ProdottoDTO prodotto = ProdottoDTOToProdotto(prodottoDTO);
         gestioneProdotto.update(prodotto);
     }
-    public void acquista(ProdottoDTO prodottoDTO) throws SQLException {
+/*    public void acquista(ProdottoDTO prodottoDTO, String idUtente) throws SQLException {
         ProdottoDTO prodotto = ProdottoDTOToProdotto(prodottoDTO);
         
         gestioneProdotto.acquista(prodotto);
+    }*/
+    public void acquista(ProdottoDTO prodottoDTO, int idUtente) throws SQLException {
+        ProdottoDTO prodotto = ProdottoDTOToProdotto(prodottoDTO);
+
+        // Qui puoi fare ciò che devi fare con l'ID dell'utente, ad esempio salvarlo o utilizzarlo per qualche operazione
+
+        gestioneProdotto.acquista(prodotto, idUtente);
     }
+
+
     /*public void delete(String id) throws SQLException {
         gestioneProdotto.delete(id);
     }*/
@@ -44,10 +53,11 @@ public class ProdottoService {
         }
         gestioneProdotto.delete(id);
     }
+    /*
     public UtenteDTO recuperaIndirizzo(int idUtente) throws SQLException, ClassNotFoundException {
         return gestioneUtenti.recuperaIndirizzo(idUtente);
     }
-
+*/
     public void inserisci(ProdottoDTO prodottoDTO) throws SQLException, ClassNotFoundException {
         ProdottoDTO prodotto = ProdottoDTOToProdotto(prodottoDTO);
         gestioneProdotto.create(prodotto);

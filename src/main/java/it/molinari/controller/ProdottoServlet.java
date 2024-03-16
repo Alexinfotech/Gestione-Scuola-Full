@@ -91,6 +91,7 @@ public class ProdottoServlet extends HttpServlet {
 			 * } break;
 			 * 
 			 */
+				/*
 			case "acquista":
 				String prodottoIdStr = request.getParameter("prodottoId");
 				if (prodottoIdStr != null && !prodottoIdStr.trim().isEmpty()) {
@@ -123,7 +124,43 @@ public class ProdottoServlet extends HttpServlet {
 					request.getRequestDispatcher("views/errore.jsp").forward(request, response);
 				}
 				break;
+*/
+			case "acquista":
+			    String prodottoIdStr = request.getParameter("prodottoId");
+			    if (prodottoIdStr != null && !prodottoIdStr.trim().isEmpty()) {
+			        try {
+			            int prodottoId = Integer.parseInt(prodottoIdStr);
+			            ProdottoDTO prodotto = gestioneProdotto.get(prodottoIdStr);
+			            if (prodotto != null) {
+			                // Ottieni l'ID utente dalla sessione
+			                int idUtente = (int) request.getSession().getAttribute("idUtente");
 
+			                // Aggiornato per passare anche idUtente
+			                gestioneProdotto.acquista(prodotto, idUtente);
+
+			                // Resto del codice rimane invariato
+			                UtenteDAO utenteDAO = new UtenteDAO();
+			                UtenteDTO utente = utenteDAO.recuperaIndirizzo(idUtente);
+			                request.setAttribute("utente", utente);
+			                request.getRequestDispatcher("views/utente/AcquistoEffettuato.jsp").forward(request, response);
+			            } else {
+			                request.setAttribute("errore", "Prodotto non trovato per l'ID: " + prodottoIdStr);
+			                request.getRequestDispatcher("views/errore.jsp").forward(request, response);
+			            }
+			        } catch (Exception e) {
+			            e.printStackTrace();
+			            request.setAttribute("errore", "Errore: " + e.getMessage());
+			            request.getRequestDispatcher("views/errore.jsp").forward(request, response);
+			        }
+			    } else {
+			        request.setAttribute("errore", "ID del prodotto non fornito.");
+			        request.getRequestDispatcher("views/errore.jsp").forward(request, response);
+			    }
+			    break;
+
+
+
+	
 			case "search":
 				String nomeProdotto = request.getParameter("nomeProdotto");
 				ProdottoDTO prodotto = null;

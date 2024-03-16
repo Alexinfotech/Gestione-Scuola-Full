@@ -68,7 +68,7 @@ String ruolo = (String) session.getAttribute("ruolo");
 						if (Ruolo.MAGAZZINIERE.equals(ruolo)) {
 						%>
 						<th class="header-custom">Modifica</th>
-						<th class="header-custom">Elimina Prodotto</th>
+						<th colspan="2" class="header-custom">Elimina Prodotto</th>
 						<%
 						}
 						%>
@@ -113,9 +113,9 @@ String ruolo = (String) session.getAttribute("ruolo");
 						if (quantita > 0) {
 						%>
 						<td><a
-							href="ProdottoServlet?action=acquista&prodottoId=<%=prodotto.getId()%>"
+							href="ProdottoServlet?action=acquista&prodottoId=<%=prodotto.getId()%>&idUtente=<%=session.getAttribute("idUtente")%>"
 							onclick="return confermaAcquisto('<%=prodotto.getId()%>');"
-							class="black-bold-text">Con unClick</a></td>
+							class="black-bold-text">Con unClick</a></td> 
 						<%
 						} else {
 						%>
