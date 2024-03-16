@@ -38,11 +38,7 @@ if (utente != null && utente.getDataNascita() != null) {
 						id="cognome" name="cognome" value="<%=utente.getCognome()%>"
 						required>
 				</div>
-				<div class="form-group">
-					<label for="email">E-mail</label> <input type="email"
-						class="form-control" style="color: black; font-weight: bold;"
-						id="email" name="email" value="<%=utente.getEmail()%>" required>
-				</div>
+			
 				<div class="form-group">
 					<label for="dataNascita">Data di nascita</label> <input type="date"
 						class="form-control" style="color: black; font-weight: bold;"
@@ -97,7 +93,7 @@ if (utente != null && utente.getDataNascita() != null) {
 				</div>
 
 				<button type="submit" class="btn btn-primary">Modifica
-					utente</button>
+					anagrafica</button>
 			</form>
 		</div>
 	</div>

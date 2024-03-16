@@ -4,7 +4,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import it.molinari.DAO.LoginDAO;
 import it.molinari.DAO.UtenteDAO;
+import it.molinari.model.DatiAcquistoDTO;
+import it.molinari.model.LoginDTO;
+import it.molinari.model.ProdottoDTO;
 import it.molinari.model.UtenteDTO;
 
 public class UtenteService {
@@ -22,7 +26,7 @@ public class UtenteService {
 
     public void create(UtenteDTO utenteDTO) throws SQLException {
         UtenteDTO utente = UtenteDTOToUtente(utenteDTO);
-        gestioneUtenti.inserisci(utente);
+        gestioneUtenti.create(utente);
     }
 
     public void update(UtenteDTO utenteDTO) throws SQLException {
@@ -34,9 +38,12 @@ public class UtenteService {
         gestioneUtenti.delete(codiceFiscale);
     }
 
-    public void inserisci(UtenteDTO utenteDTO) throws SQLException, ClassNotFoundException {
+    public void inserisci(UtenteDTO utenteDTO, String idUtente) throws SQLException, ClassNotFoundException {
         UtenteDTO utente = UtenteDTOToUtente(utenteDTO);
-        gestioneUtenti.inserisci(utente);
+        gestioneUtenti.inserisci(utente,  idUtente);
+    }
+    public UtenteDTO recuperaIndirizzo(int idUtente) throws SQLException, ClassNotFoundException {
+        return gestioneUtenti.recuperaIndirizzo(idUtente);
     }
 
     public List<UtenteDTO> recupera() throws ClassNotFoundException, SQLException {
@@ -48,7 +55,40 @@ public class UtenteService {
         }
         return listaUtentiDTO;
     }
+    
+    public List<UtenteDTO> recuperaMagazzinieri() throws ClassNotFoundException, SQLException {
+        List<UtenteDTO> listaMagazzinieri = gestioneUtenti.recuperaMagazzinieri();
+        List<UtenteDTO> listaUtentiDTO = new ArrayList<>();
+        for (UtenteDTO utente : listaMagazzinieri) {
+            UtenteDTO dto = UtenteToUtenteDTO(utente);
+            listaUtentiDTO.add(dto);
+        }
+        return listaUtentiDTO;
+    }
+    
+    public class AcquistoService {
 
+        private UtenteService gestioneUtenti;
+        private ProdottoService gestioneProdotti;
+
+        // Costruttore
+        public AcquistoService(UtenteService gestioneUtenti, ProdottoService gestioneProdotti) {
+            this.gestioneUtenti = gestioneUtenti;
+            this.gestioneProdotti = gestioneProdotti;
+        }
+
+        public DatiAcquistoDTO recuperaDatiAcquisto(int idUtente, int idProdotto) throws SQLException, ClassNotFoundException {
+            DatiAcquistoDTO datiAcquisto = new DatiAcquistoDTO();
+
+            UtenteDTO utente = gestioneUtenti.recuperaIndirizzo(idUtente);
+            ProdottoDTO prodotto = gestioneProdotti.getIdProdotto(idProdotto); // Assumi l'esistenza di questo metodo in ProdottoService
+
+            datiAcquisto.setUtente(utente);
+            datiAcquisto.setProdotto(prodotto);
+
+            return datiAcquisto;
+        }
+    }
     private UtenteDTO UtenteToUtenteDTO(UtenteDTO utente) {
         if (utente == null) {
             return null;

@@ -3,13 +3,16 @@
 <%@page import="java.util.List"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%
-String ruolo = (String) request.getSession().getAttribute("ruolo");
 String idParametro = request.getParameter("id");
 System.out.println("Parametro id: " + idParametro);
 if (idParametro != null && !idParametro.isEmpty()) {
 	System.out.println("Tipo di id: " + idParametro.getClass().getName());
 }
 %>
+<%
+String ruolo = (String) session.getAttribute("ruolo");
+%>
+
 
 <head>
 <link rel="stylesheet"
@@ -48,12 +51,27 @@ if (idParametro != null && !idParametro.isEmpty()) {
 			<table class="table-custom">
 				<thead>
 					<tr>
+
 						<th class="header-custom">Nome Prodotto</th>
 						<th class="header-custom">Prezzo</th>
 						<th class="header-custom">Descrizione Prodotto</th>
 						<th class="header-custom">Quantita Prodotto</th>
+						<%
+						if (Ruolo.UTENTE_NAVIGATORE.equals(ruolo)) {
+						%>
 						<th class="header-custom">Acquista Prodotto</th>
 						<th colspan="2" class="header-custom">Recensioni</th>
+						<%
+						}
+						%>
+						<%
+						if (Ruolo.MAGAZZINIERE.equals(ruolo)) {
+						%>
+						<th class="header-custom">Modifica</th>
+						<th class="header-custom">Elimina Prodotto</th>
+						<%
+						}
+						%>
 					</tr>
 				</thead>
 				<tbody>

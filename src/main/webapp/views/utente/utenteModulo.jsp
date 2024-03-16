@@ -1,25 +1,32 @@
 <%@page import="it.molinari.model.UtenteDTO"%>
+<%@page import="it.molinari.service.Ruolo"%>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 
 <%
+String ruolo = (String) request.getSession().getAttribute("ruolo");
+String idParametro = request.getParameter("id");
 UtenteDTO utente = (UtenteDTO) request.getAttribute("utente");
 String codiceFiscale = utente != null && utente.getCodiceFiscale() != null ? utente.getCodiceFiscale() : "";
 String nome = utente != null && utente.getNome() != null ? utente.getNome() : "";
 String cognome = utente != null && utente.getCognome() != null ? utente.getCognome() : "";
 
-
-
 String dataNascitaStr = utente != null && utente.getDataNascita() != null
-		? new java.text.SimpleDateFormat("yyyy-MM-dd").format(utente.getDataNascita())
-		: "";
+        ? new java.text.SimpleDateFormat("yyyy-MM-dd").format(utente.getDataNascita())
+        : "";
 String comuneDiNascita = utente != null && utente.getComuneDiNascita() != null ? utente.getComuneDiNascita() : "";
 
 String comuneDiResidenza = utente != null && utente.getComuneDiResidenza() != null ? utente.getComuneDiResidenza() : "";
-String provinvia = utente != null && utente.getProvincia() != null ? utente.getProvincia() : "";
+String provincia = utente != null && utente.getProvincia() != null ? utente.getProvincia() : "";
 
 String via = utente != null && utente.getVia() != null ? utente.getVia() : "";
 String numeroCivico = utente != null && utente.getNumeroCivico() != null ? utente.getNumeroCivico() : "";
 String cap = utente != null && utente.getCap() != null ? utente.getCap() : "";
+%>
+
+<%
+Integer idUtenteInteger = (Integer) session.getAttribute("idUtente");
+String idUtente = idUtenteInteger.toString();
 %>
 <head>
 <link rel="stylesheet"
@@ -33,14 +40,13 @@ String cap = utente != null && utente.getCap() != null ? utente.getCap() : "";
 }
 </style>
 <body>
-	<%@include file="../../views/struttura/header.jsp"%>
-	<div id="mainContainer">
-		<%@include file="../../views/struttura/menu.jsp"%>
-
+	
 		<div id="corpoPrincipale">
-			<h2 style="color: #1e90ff;">Utente</h2>
+			<h2 style="color: #1e90ff;">Inserisci tua nagrafica </h2>
 			<form id="createUtenteForm" action="UtenteServletDB" method="POST">
 				<input type="hidden" name="action" value="create">
+				<input type="hidden" name="idUtente" value="<%= idUtente %>">
+				
 				<!-- Quì forse qualcosa di interessante sono riuscto a farlo-->
 				<div class="form-group">
 					<input type="text" class="form-control" style="color: black;"
@@ -55,6 +61,9 @@ String cap = utente != null && utente.getCap() != null ? utente.getCap() : "";
 						<option value="M">Maschio</option>
 						<option value="F">Femmina</option>
 				</div>
+
+
+				
 				<div class="form-group">
 					<input type="date" class="form-control" style="color: black;"
 						id="dataNascita" name="dataNascita" min="1900-01-01" required>
@@ -115,7 +124,7 @@ String cap = utente != null && utente.getCap() != null ? utente.getCap() : "";
 
 				<button type="submit" class="btn btn-secondary"
 					style="color: #1e90ff;">
-					<strong>Aggiungi Utente</strong>
+					<strong>Aggiungi Anagrafica</strong>
 				</button>
 				<p style="color: #1e90ff; margin: 0;">
 					<strong>Per generare automaticamente il Codice Fiscale
@@ -176,8 +185,13 @@ document.addEventListener('DOMContentLoaded', () => {
 	    }
 	});
 	</script>
+<script>
+    console.log("idUtente:", "<%= idUtente %>");
+    console.log("Tipo di dato di idUtente:", typeof <%= idUtente %>);
+    console.log("ruolo:", "<%= ruolo %>");
+    console.log("Tipo di dato di idUtente:", typeof <%= ruolo %>);
+</script>
 
 
 
-	<%@include file="../../views/struttura/footer.jsp"%>
 </body>

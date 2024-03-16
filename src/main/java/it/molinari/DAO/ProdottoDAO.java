@@ -57,6 +57,7 @@ public  class ProdottoDAO extends Dao implements DaoInterface<ProdottoDTO> {
             stmt.executeUpdate();
         }
     }
+
     public void acquista(ProdottoDTO prodotto) throws SQLException {
         // Ottiene l'ID del prodotto dall'oggetto ProdottoDTO
         int prodottoId = prodotto.getId();

@@ -1,18 +1,20 @@
 package it.molinari.controller;
+
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.util.List;
 
 import it.molinari.model.UtenteDTO;
+import it.molinari.DAO.LoginDAO;
+import it.molinari.model.LoginDTO;
+import it.molinari.service.Ruolo;
 import it.molinari.service.UtenteService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-
-
 
 @WebServlet("/UtenteServletDB")
 public class UtenteServletDB extends HttpServlet {
@@ -23,15 +25,30 @@ public class UtenteServletDB extends HttpServlet {
 		super();
 	}
 
+	private LoginDTO recuperLoginDaIdUtente(String idUtente) throws SQLException {
+		// Conversione dell'ID utente da String a int.
+		int userId = Integer.parseInt(idUtente);
+
+		// Utilizzo del LoginDAO per recuperare l'oggetto LoginDTO corrispondente.
+		LoginDAO loginDAO = new LoginDAO();
+		return loginDAO.findById(userId);
+	}
+
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+			throws ServletException, IOException { // Ottenere il ruolo dell'utente dalla sessione o da altri meccanismi
+													// di autenticazione
+		
 		String action = request.getParameter("action");
 		try {
 			switch (action) {
 			case "create":
 				request.setAttribute("utente", new UtenteDTO());
 				request.getRequestDispatcher("views/utente/utente.jsp").forward(request, response);
+				break;
+			case "createModulo":
+				request.setAttribute("utente", new UtenteDTO());
+				request.getRequestDispatcher("views/utente/utenteModulo.jsp").forward(request, response);
 				break;
 			case "createProva":
 				request.setAttribute("utente", new UtenteDTO());
@@ -49,6 +66,12 @@ public class UtenteServletDB extends HttpServlet {
 				List<UtenteDTO> listaUtenti = gestioneUtenti.recupera();
 				request.setAttribute("listaUtenti", listaUtenti);
 				request.getRequestDispatcher("views/utente/listaUtenti.jsp").forward(request, response);
+				break;
+			case "ListMagaz":
+				List<UtenteDTO> listaMagazzinieri = gestioneUtenti.recuperaMagazzinieri();
+
+				request.setAttribute("listaMagazzinieri", listaMagazzinieri);
+				request.getRequestDispatcher("views/utente/listaMagazzinieri.jsp").forward(request, response);
 				break;
 			case "dettaglio":
 				String codiceFiscaleDettaglio = request.getParameter("codiceFiscale");
@@ -90,45 +113,67 @@ public class UtenteServletDB extends HttpServlet {
 		}
 	}
 
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        String codiceFiscale = request.getParameter("codiceFiscale");
-        String action = request.getParameter("action");
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		
+		String codiceFiscale = request.getParameter("codiceFiscale");
+		String idUtente = request.getParameter("idUtente");
+		String action = request.getParameter("action");
 
-        try {
-            if ("create".equals(action)) {
-                UtenteDTO utente = creaUtenteDTO(request);
-                // Verifica se l'utente esiste già
-                if (gestioneUtenti.get(codiceFiscale) == null) {
-                    // Se l'utente non esiste, procedi con la creazione
-                    gestioneUtenti.inserisci(utente);
-                    response.sendRedirect("UtenteServletDB?action=list");
-                } else {
-                    // Se l'utente esiste già, mostra un messaggio di errore
-                    request.setAttribute("errore", "Codice fiscale già esistente. Inserisci un codice fiscale diverso.");
-                    request.getRequestDispatcher("views/errore.jsp").forward(request, response);
-                }
-            } else if ("update".equals(action)) {
-                doPut(request, response); // Chiamata diretta a doPut per l'aggiornamento
-            } else {
-                request.setAttribute("errore", "Azione non supportata.");
-                request.getRequestDispatcher("views/errore.jsp").forward(request, response);
-            }
-        } catch (SQLException | ClassNotFoundException e) {
-            e.printStackTrace();
-            request.setAttribute("errore", "Errore durante l'accesso al database: " + e.getMessage());
-            request.getRequestDispatcher("views/errore.jsp").forward(request, response);
-        }
-    }
+		try {
+			if (idUtente != null && !idUtente.isEmpty()) {
+				// L'ID utente è stato recuperato correttamente
+				if ("create".equals(action)) {
+					// Recupera l'oggetto LoginDTO associato all'idUtente
+					LoginDTO login = recuperLoginDaIdUtente(idUtente);
+					if (login != null) {
+						UtenteDTO utente = creaUtenteDTO(request);
+						// Verifica che i parametri utente siano validi
+						if (utente != null) {
+							// Procedi con l'inserimento
+							// Assumi che 'utente' sia un oggetto UtenteDTO popolato con i dati del form
+							// e che 'idUtente' sia l'ID dell'utente come stringa
+							gestioneUtenti.inserisci(utente, idUtente);
+
+							response.sendRedirect("ProdottoServlet?action=list");
+
+						} else {
+							// Messaggio di errore se i parametri utente non sono validi
+							request.setAttribute("errore",
+									"Parametri utente non validi. Impossibile inserire l'utente.");
+							request.getRequestDispatcher("views/errore.jsp").forward(request, response);
+						}
+					} else {
+						// Messaggio di errore se l'oggetto LoginDTO non è stato trovato per l'idUtente
+						request.setAttribute("errore", "Nessun utente trovato per l'ID specificato.");
+						request.getRequestDispatcher("views/errore.jsp").forward(request, response);
+					}
+				} else if ("update".equals(action)) {
+					doPut(request, response); // Chiamata diretta a doPut per l'aggiornamento
+				} else {
+					// Messaggio di errore se l'azione non è supportata
+					request.setAttribute("errore", "Azione non supportata.");
+					request.getRequestDispatcher("views/errore.jsp").forward(request, response);
+				}
+			} else {
+				// Messaggio di errore se l'ID utente non è stato recuperato correttamente
+				request.setAttribute("errore", "ID utente non valido.");
+				request.getRequestDispatcher("views/errore.jsp").forward(request, response);
+			}
+		} catch (SQLException | ClassNotFoundException e) {
+			e.printStackTrace();
+			// Messaggio di errore se si verifica un'eccezione durante l'accesso al database
+			request.setAttribute("errore", "Errore durante l'accesso al database: " + e.getMessage());
+			request.getRequestDispatcher("views/errore.jsp").forward(request, response);
+		}
+	}
 
 	@Override
 	protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		
 		String codiceFiscale = req.getParameter("codiceFiscale");
+
 		try {
 			UtenteDTO utenteAggiornato = creaUtenteDTO(req);
-
 			UtenteDTO utenteEsistente = gestioneUtenti.get(codiceFiscale);
 			if (utenteEsistente != null) {
 				gestioneUtenti.update(utenteAggiornato);
@@ -146,6 +191,12 @@ public class UtenteServletDB extends HttpServlet {
 
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		String ruolo = (String) request.getSession().getAttribute("ruolo");
+		if (!Ruolo.AMMINISTRATORE.equals(ruolo)) {
+			request.setAttribute("errorMessage", "Accesso consentito solo agli amministratori.");
+			request.getRequestDispatcher("views/errore.jsp").forward(request, response);
+			return; // Interrompi l'esecuzione della servlet
+		}
 		String codiceFiscale = request.getParameter("codiceFiscale");
 		try {
 			gestioneUtenti.delete(codiceFiscale);
@@ -166,11 +217,11 @@ public class UtenteServletDB extends HttpServlet {
 		String dataNascitaStr = req.getParameter("dataNascita");
 		Date dataNascita = null;
 		if (dataNascitaStr != null && !dataNascitaStr.isEmpty()) {
-		    try {
-		        dataNascita = Date.valueOf(dataNascitaStr);
-		    } catch (IllegalArgumentException e) {
-		        // Qui Gestirò l'eccezione se necessario
-		    }
+			try {
+				dataNascita = Date.valueOf(dataNascitaStr);
+			} catch (IllegalArgumentException e) {
+				// Qui Gestirò l'eccezione se necessario
+			}
 		}
 		utente.setDataNascita(dataNascita);
 		utente.setComuneDiNascita(req.getParameter("comuneDiNascita"));

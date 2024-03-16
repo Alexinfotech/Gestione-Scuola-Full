@@ -42,7 +42,7 @@
 			<h2 style="color: #1e90ff;">Elenco Utenti</h2>
 			<table class="table-custom">
 				<thead>
-					<tr>
+					<tr><th class="header-custom">Email</th>
 						<th class="header-custom">Codice Fiscale</th>
 						<th class="header-custom">Nome</th>
 						<th class="header-custom">Cognome</th>
@@ -63,11 +63,12 @@
 				</thead>
 				<tbody>
 					<%
-					List<UtenteDTO> listaUtenti = (List<UtenteDTO>) request.getAttribute("listaUtenti");
+					List<UtenteDTO> listaUtenti = (List<UtenteDTO>) request.getAttribute("listaMagazzinieri");
 					if (listaUtenti != null && !listaUtenti.isEmpty()) {
 						for (UtenteDTO utente : listaUtenti) {
 					%>
-					<tr>
+					
+					<tr><td class="bold-text"><%=utente.getEmail()%></td>
 						<td class="bold-text"><%=utente.getCodiceFiscale()%></td>
 						<td><%=utente.getNome()%></td>
 						<td class="bold-text"><%=utente.getCognome()%></td>

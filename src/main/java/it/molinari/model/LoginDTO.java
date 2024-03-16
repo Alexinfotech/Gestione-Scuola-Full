@@ -4,6 +4,8 @@ public class LoginDTO {
 	private String email;
 	private String password;
 	private Integer idUtente;
+    private String ruolo; // Aggiungi questa linea
+
 
 	public LoginDTO() {
 	}
@@ -39,9 +41,18 @@ public class LoginDTO {
 		this.idUtente = idUtente;
 	}
 
-	@Override
-	public String toString() {
-		return "LoginDTO [email=" + email + ", password=" + password + ", idUtente="+ idUtente +"]";
+
+	public String getRuolo() {
+		return ruolo;
 	}
+
+	public void setRuolo(String ruolo) {
+		this.ruolo = ruolo;
+	}
+	
+    @Override
+    public String toString() {
+        return "LoginDTO [email=" + email + ", password=" + password + ", idUtente=" + idUtente + ", ruolo=" + ruolo + "]";
+    }
 
 }

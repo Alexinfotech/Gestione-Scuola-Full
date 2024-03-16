@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import it.molinari.model.LoginDTO;
+
 public class LoginDAO extends Dao implements LoginDAOInterface {
 
     @Override
@@ -29,23 +31,67 @@ public class LoginDAO extends Dao implements LoginDAOInterface {
             stmt.executeUpdate();
         }
     }
+	public void registraMagazziniere(String email, String password) throws SQLException {
+	    String sql = "INSERT INTO login (email, password, ruolo) VALUES (?, ?, ?)";
+	    try (Connection conn = getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+	        stmt.setString(1, email);
+	        stmt.setString(2, password);
+	        stmt.setString(3, "magazziniere"); // Imposta il ruolo come "magazziniere"
+	        stmt.executeUpdate();
+	    }
+	}
 
     @Override
-    public String validateUser(String email, String password) throws SQLException {
-        String sql = "SELECT password, ruolo FROM login WHERE email = ?";
+    public LoginDTO validateUser(String email, String password) throws SQLException {
+        String sql = "SELECT id, password, ruolo FROM login WHERE email = ?";
         try (Connection conn = getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, email);
             ResultSet resultSet = stmt.executeQuery();
             if (resultSet.next()) {
+                int idUtente = resultSet.getInt("id");
                 String storedPassword = resultSet.getString("password");
                 String ruolo = resultSet.getString("ruolo");
-                // Controlla la corrispondenza della password
                 if (password.equals(storedPassword)) {
-                    // La password è corretta, restituisci il ruolo dell'utente
-                    return ruolo;
+                    LoginDTO user = new LoginDTO();
+                    user.setEmailLogin(email);
+                    user.setPassword(password); // Considera la sicurezza qui
+                    user.setIdUtente(idUtente);
+                    user.setRuolo(ruolo);
+                    return user;
                 }
             }
         }
-        return null; // Restituisci null se l'utente non esiste o la password non corrisponde
+        return null;
     }
+    public boolean isAnagraficaCompleta(int idUtente) throws SQLException {
+        String sql = "SELECT COUNT(*) FROM utenti WHERE login_id = ?";
+        try (Connection conn = getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, idUtente);
+            ResultSet resultSet = stmt.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getInt(1) > 0;
+            }
+        }
+        return false;
+    }
+
+    public LoginDTO findById(int id) throws SQLException {
+        String sql = "SELECT * FROM login WHERE id = ?"; // Assumi che la colonna per l'ID sia chiamata 'id'.
+        try (Connection conn = getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, id);
+            try (ResultSet resultSet = stmt.executeQuery()) {
+                if (resultSet.next()) {
+                    LoginDTO user = new LoginDTO();
+                    user.setIdUtente(resultSet.getInt("id"));
+                    user.setEmailLogin(resultSet.getString("email"));
+                    user.setPassword(resultSet.getString("password")); // Nota sulla sicurezza sotto.
+                    user.setRuolo(resultSet.getString("ruolo"));
+                    return user;
+                }
+            }
+        }
+        return null; // Ritorna null se nessun utente è trovato con quell'ID.
+    }
+
+
 }

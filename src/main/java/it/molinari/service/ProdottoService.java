@@ -6,6 +6,7 @@ import java.util.List;
 
 import it.molinari.DAO.ProdottoDAO;
 import it.molinari.model.ProdottoDTO;
+import it.molinari.model.UtenteDTO;
 
 public class ProdottoService {
 
@@ -31,6 +32,7 @@ public class ProdottoService {
     }
     public void acquista(ProdottoDTO prodottoDTO) throws SQLException {
         ProdottoDTO prodotto = ProdottoDTOToProdotto(prodottoDTO);
+        
         gestioneProdotto.acquista(prodotto);
     }
     /*public void delete(String id) throws SQLException {
@@ -42,6 +44,10 @@ public class ProdottoService {
         }
         gestioneProdotto.delete(id);
     }
+    public UtenteDTO recuperaIndirizzo(int idUtente) throws SQLException, ClassNotFoundException {
+        return gestioneUtenti.recuperaIndirizzo(idUtente);
+    }
+
     public void inserisci(ProdottoDTO prodottoDTO) throws SQLException, ClassNotFoundException {
         ProdottoDTO prodotto = ProdottoDTOToProdotto(prodottoDTO);
         gestioneProdotto.create(prodotto);
