@@ -1,8 +1,11 @@
 <%@page import="it.molinari.model.UtenteDTO"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
+<%@page import="it.molinari.service.Ruolo"%>
 
 <link rel="stylesheet" type="text/css" href="resources/css/style.css">
 <%
+String ruolo = (String) request.getSession().getAttribute("ruolo");
+
 UtenteDTO utente = (UtenteDTO) request.getAttribute("utente");
 %>
 <%
@@ -21,11 +24,18 @@ if (utente != null && utente.getDataNascita() != null) {
 		<%@include file="../../views/struttura/menu.jsp"%>
 
 		<div id="corpoPrincipale">
-			<h2 style="color: #1e90ff;">Utente</h2>
+			<h2 style="color: #1e90ff;">Anagrafe</h2>
 			<form id="updateUtenteForm" action="UtenteServletDB" method="POST">
 				<input type="hidden" name="action" value="update"> <input
 					type="hidden" name="_method" value="PUT"> <input
 					type="hidden" name="id" value="<%=utente.getCodiceFiscale()%>">
+
+				<div class="form-group">
+					<label for="ruolo">Ruolo</label> <input type="text"
+						class="form-control" id="ruolo" name="ruolo"
+						value="<%=utente.getRuolo()%>" required
+						style="color: red; font-weight: bold; text-transform: uppercase;">
+				</div>
 
 				<div class="form-group">
 					<label for="nome">Nome</label> <input type="text"
@@ -38,7 +48,7 @@ if (utente != null && utente.getDataNascita() != null) {
 						id="cognome" name="cognome" value="<%=utente.getCognome()%>"
 						required>
 				</div>
-			
+
 				<div class="form-group">
 					<label for="dataNascita">Data di nascita</label> <input type="date"
 						class="form-control" style="color: black; font-weight: bold;"
@@ -94,6 +104,10 @@ if (utente != null && utente.getDataNascita() != null) {
 
 				<button type="submit" class="btn btn-primary">Modifica
 					anagrafica</button>
+				<a
+					href="UtenteServletDB?action=delete&codiceFiscale=<%=utente.getCodiceFiscale()%>"
+					onclick="return confermaEliminazione('<%=utente.getNome()%>', '<%=utente.getCodiceFiscale()%>');"
+					class="btn btn-danger">Elimina Utente</a>
 			</form>
 		</div>
 	</div>

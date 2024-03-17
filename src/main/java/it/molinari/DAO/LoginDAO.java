@@ -63,6 +63,7 @@ public class LoginDAO extends Dao implements LoginDAOInterface {
         }
         return null;
     }
+    
     public boolean isAnagraficaCompleta(int idUtente) throws SQLException {
         String sql = "SELECT COUNT(*) FROM utenti WHERE login_id = ?";
         try (Connection conn = getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -75,6 +76,8 @@ public class LoginDAO extends Dao implements LoginDAOInterface {
         return false;
     }
 
+
+    
     public LoginDTO findById(int id) throws SQLException {
         String sql = "SELECT * FROM login WHERE id = ?"; // Assumi che la colonna per l'ID sia chiamata 'id'.
         try (Connection conn = getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {

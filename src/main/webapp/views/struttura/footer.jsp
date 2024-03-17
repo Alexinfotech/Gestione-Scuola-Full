@@ -1,3 +1,4 @@
+
 <div id="footer" class="container-fluid">
     <div class="row align-items-center bg-f0f0f0"> <!-- Aggiunto sfondo colore f0f0f0--che voglia -->
         <div class="col-md-4 text-center">

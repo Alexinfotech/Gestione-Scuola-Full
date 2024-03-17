@@ -39,7 +39,7 @@
 		<%@include file="../../views/struttura/menu.jsp"%>
 
 		<div id="corpoPrincipale">
-			<h2 style="color: #1e90ff;">Elenco Utenti</h2>
+			<h2 style="color: #1e90ff;">Elenco Clienti</h2>
 			<table class="table-custom">
 				<thead>
 					<tr>

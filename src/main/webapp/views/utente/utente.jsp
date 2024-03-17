@@ -1,5 +1,6 @@
 <%@page import="it.molinari.model.UtenteDTO"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
+<%@page import="it.molinari.service.Ruolo"%>
 
 <%
 UtenteDTO utente = (UtenteDTO) request.getAttribute("utente");

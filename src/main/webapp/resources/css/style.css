@@ -7,6 +7,10 @@ html, body {
     flex-direction: column;
     min-height: 100vh;
     background-color: white; /* Sfondo chiaro */
+    background-image: url('welcome.jpg');
+    background-size: cover; /* Regola per adattare l'immagine allo schermo */
+    background-position: center; /* Regola per centrare l'immagine */
+    /* Altre proprietà di stile se necessario */
 }
 
 /* Imposta il container principale come flex container */
@@ -22,7 +26,6 @@ html, body {
     color: #1e90ff; /* Colore del testo nel menu */
     padding: 15px;
 }
-
 
 /* Stile per il corpo principale */
 #corpoPrincipale {
@@ -81,3 +84,10 @@ li, a {
     background-color: #1e90ff; /* Sfondo blu */
     color: white;
 }
+/* Stile per l'icona della freccia */
+.bi.bi-arrow-right-circle {
+    font-size: 24px; /* Regola la dimensione dell'icona */
+    vertical-align: middle; /* Allinea l'icona verticalmente al testo */
+}
+
+

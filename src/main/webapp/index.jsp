@@ -32,10 +32,10 @@
 			<a href="registrazione.jsp" class="text-dark">Registrati ora</a>
 		</p>
 
+	<div id="corpoPrincipale" class="container mt-4">
 
 	</div>
 
-	<div id="corpoPrincipale" class="container mt-4">
 		<%
 		String errore = (String) request.getAttribute("errore");
 		if (errore != null && !errore.isEmpty()) {

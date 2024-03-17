@@ -16,6 +16,7 @@ public class UtenteDTO {
 	private String numeroCivico;
 	private String cap;
 	private String sesso;
+	private String ruolo;
 	private static String apiToken = "120d80c4786d1f557e2ca6b3dc2a487b507c99236d8cf1666e39164369d84777556";
 
 	public Integer getId() {
@@ -135,6 +136,16 @@ public class UtenteDTO {
 		return "UtenteDTO [id=" + id + ",codiceFiscale=" + codiceFiscale + ", nome=" + nome + ", cognome=" + cognome
 				+ ",sesso=" + sesso + ", email=" + email + ",  dataNascita=" + dataNascita + ", comuneDiNascita="
 				+ comuneDiNascita + ", comuneDiResidenza=" + comuneDiResidenza + ",provincia=" + provincia + ", via="
-				+ via + ", numeroCivico=" + numeroCivico + ", cap=" + cap + "]";
+				+ via + ", numeroCivico=" + numeroCivico + ", cap=" + cap +  ", ruolo=" + ruolo +"]";
 	}
+
+	public String getRuolo() {
+		return ruolo;
+	}
+
+	public void setRuolo(String ruolo) {
+		this.ruolo = ruolo;
+	}
+
+
 }

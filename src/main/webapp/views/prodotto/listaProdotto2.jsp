@@ -55,7 +55,17 @@ String ruolo = (String) session.getAttribute("ruolo");
 						<th class="header-custom">Nome Prodotto</th>
 						<th class="header-custom">Prezzo</th>
 						<th class="header-custom">Descrizione Prodotto</th>
+						<% 	
+						if (Ruolo.AMMINISTRATORE.equals(ruolo)) {
+						%>
+						<th  class="header-custom">Quantita Prodotto</th>
+						<th  class="header-custom">Recensioni</th>
+						<%} %>
+						<% 	
+						if (Ruolo.UTENTE_NAVIGATORE.equals(ruolo)) {
+						%>
 						<th class="header-custom">Quantita Prodotto</th>
+						<%} %>
 						<%
 						if (Ruolo.UTENTE_NAVIGATORE.equals(ruolo)) {
 						%>
@@ -68,7 +78,7 @@ String ruolo = (String) session.getAttribute("ruolo");
 						if (Ruolo.MAGAZZINIERE.equals(ruolo)) {
 						%>
 						<th class="header-custom">Modifica</th>
-						<th colspan="2" class="header-custom">Elimina Prodotto</th>
+						<th colspan="2" class="header-custom">Azione Prodotto</th>
 						<%
 						}
 						%>
@@ -115,7 +125,7 @@ String ruolo = (String) session.getAttribute("ruolo");
 						<td><a
 							href="ProdottoServlet?action=acquista&prodottoId=<%=prodotto.getId()%>&idUtente=<%=session.getAttribute("idUtente")%>"
 							onclick="return confermaAcquisto('<%=prodotto.getId()%>');"
-							class="black-bold-text">Con unClick</a></td> 
+							class="black-bold-text">Con unClick</a></td>
 						<%
 						} else {
 						%>
@@ -132,6 +142,7 @@ String ruolo = (String) session.getAttribute("ruolo");
 						}
 						if (Ruolo.UTENTE_NAVIGATORE.equals(ruolo)) {
 						%>
+
 						<td><a
 							href="RecensioneServlet?action=create&idProdotto=<%=prodotto.getId()%>&descrizioneProdotto=<%=prodotto.getDescrizioneProdotto()%>&nomeProdotto=<%=prodotto.getNomeProdotto()%>"
 							class="black-bold-text">Scrivi Recensione</a></td>

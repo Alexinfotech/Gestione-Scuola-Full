@@ -95,6 +95,7 @@ public class UtenteService {
         }
 
         UtenteDTO utenteDTO = new UtenteDTO();
+        utenteDTO.setRuolo(utente.getRuolo());
         utenteDTO.setId(utente.getId());
         utenteDTO.setNome(utente.getNome());
         utenteDTO.setCognome(utente.getCognome());
@@ -113,6 +114,8 @@ public class UtenteService {
 
     private UtenteDTO UtenteDTOToUtente(UtenteDTO utenteDTO) {
         UtenteDTO utente = new UtenteDTO();
+        utente.setRuolo(utenteDTO.getRuolo());
+
         utente.setId(utenteDTO.getId());
         utente.setNome(utenteDTO.getNome());
         utente.setCognome(utenteDTO.getCognome());

@@ -1,9 +1,17 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java"%>
+
 <%@page import="it.molinari.model.UtenteDTO"%>
 <%@page import="java.util.List"%>
-<%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%@page import="it.molinari.service.Ruolo"%>
-<% String ruolo = (String) request.getSession().getAttribute("ruolo");%>
-
+<%
+String ruolo = (String) request.getSession().getAttribute("ruolo");
+%>
+<script type="text/javascript">
+	function confermaEliminazione(nomeUtente, codiceFiscale) {
+		return confirm('Sei sicuro di voler eliminare l\'utente ' + nomeUtente
+				+ ' con codice fiscale ' + codiceFiscale + '?');
+	}
+</script>
 
 
 
@@ -25,12 +33,7 @@
 </style>
 
 
-<script type="text/javascript">
-	function confermaEliminazione(nomeUtente, codiceFiscale) {
-		return confirm('Sei sicuro di voler eliminare l\'utente ' + nomeUtente
-				+ ' con codice fiscale ' + codiceFiscale + '?');
-	}
-</script>
+
 </head>
 
 <body>
@@ -39,10 +42,12 @@
 		<%@include file="../../views/struttura/menu.jsp"%>
 
 		<div id="corpoPrincipale">
-			<h2 style="color: #1e90ff;">Elenco Utenti</h2>
+
+			<h2 style="color: #1e90ff;">Elenco Magazzinieri</h2>
 			<table class="table-custom">
 				<thead>
-					<tr><th class="header-custom">Email</th>
+					<tr>
+						<th class="header-custom">Email</th>
 						<th class="header-custom">Codice Fiscale</th>
 						<th class="header-custom">Nome</th>
 						<th class="header-custom">Cognome</th>
@@ -67,8 +72,9 @@
 					if (listaUtenti != null && !listaUtenti.isEmpty()) {
 						for (UtenteDTO utente : listaUtenti) {
 					%>
-					
-					<tr><td class="bold-text"><%=utente.getEmail()%></td>
+
+					<tr>
+						<td class="bold-text"><%=utente.getEmail()%></td>
 						<td class="bold-text"><%=utente.getCodiceFiscale()%></td>
 						<td><%=utente.getNome()%></td>
 						<td class="bold-text"><%=utente.getCognome()%></td>
@@ -104,8 +110,10 @@
 			</table>
 		</div>
 	</div>
-	<%@include file="../../views/struttura/footer.jsp"%>
+
 </body>
+	<%@include file="../../views/struttura/footer.jsp"%>
+
 
 
 
