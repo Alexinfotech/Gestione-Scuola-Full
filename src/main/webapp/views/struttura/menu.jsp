@@ -33,19 +33,20 @@ String ruolo1 = (String) request.getSession().getAttribute("ruolo");
 		<li><a href="/GestioneScuola_full/ProdottoServlet?action=create"
 			style="color: #1e90ff;"><strong>InserisciProdotto</strong></a></li>
 		<%
+		} else if (Ruolo.UTENTE_NAVIGATORE.equals(ruolo1)) {
+		%>
+
+		<li><a
+			href="/GestioneScuola_full/OrdineServlet?action=visualizzaOrdini&idUtente=<%=session.getAttribute("idUtente")%>"
+			style="color: #1e90ff;"><strong>OrdinieEfettuati</strong></a></li>
+		<%
 		}
 		if (Ruolo.UTENTE_NAVIGATORE.equals(ruolo1) || Ruolo.MAGAZZINIERE.equals(ruolo1)
 				|| Ruolo.AMMINISTRATORE.equals(ruolo1)) {
 		%>
 		<li><a href="/GestioneScuola_full/ProdottoServlet?action=list"
 			style="color: #1e90ff;"><strong>Prodotti</strong></a></li>
-		<%
-		} else if (Ruolo.UTENTE_NAVIGATORE.equals(ruolo1)) {
-		%>
 
-		<li><a
-			href="/GestioneScuola_full/OrdineServlet?action=visualizzaOrdini&idUtente=<%=session.getAttribute("idUtente")%>"
-			style="color: #1e90ff;"><strong>Ordini effettuati</strong></a></li>
 		<%
 		}
 		%>
