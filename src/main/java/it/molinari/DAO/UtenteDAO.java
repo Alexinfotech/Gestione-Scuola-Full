@@ -28,7 +28,8 @@ public class UtenteDAO extends Dao implements DaoInterface<UtenteDTO> {
 	 * utente.setNumeroCivico(resultSet.getString("numeroCivico"));
 	 * utente.setCap(resultSet.getString("cap")); return utente; } } } return null;
 	 * }
-	 */ public UtenteDTO get(String codiceFiscale) throws SQLException {
+	 */
+	public UtenteDTO get(String codiceFiscale) throws SQLException {
 		String sql = "SELECT u.*, l.ruolo FROM utenti u INNER JOIN login l ON u.login_id = l.Id WHERE u.codiceFiscale = ?";
 		try (Connection conn = getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
 			stmt.setString(1, codiceFiscale);
@@ -102,7 +103,7 @@ public class UtenteDAO extends Dao implements DaoInterface<UtenteDTO> {
 			stmt.executeUpdate();
 		}
 	}
-
+/*
 	@Override
 	public void update(UtenteDTO utente) throws SQLException {
 		String sql = "UPDATE utenti SET nome = ?, cognome = ?, email = ?, dataNascita = ?, "
@@ -125,6 +126,99 @@ public class UtenteDAO extends Dao implements DaoInterface<UtenteDTO> {
 			stmt.executeUpdate();
 		}
 	}
+	*/
+	/*
+	@Override
+	public void update(UtenteDTO utente) throws SQLException {
+	    String sqlFindId = "SELECT id FROM utenti WHERE codiceFiscale = ?";
+	    String sqlUpdate = "UPDATE utenti SET nome = ?, cognome = ?, email = ?, dataNascita = ?, "
+	            + "comuneDiNascita = ?, provincia = ?, comuneDiResidenza = ?, via = ?, "
+	            + "numeroCivico = ?, cap = ? WHERE id = ?";
+
+	    try (Connection conn = getConnection();
+	         PreparedStatement stmtFindId = conn.prepareStatement(sqlFindId);
+	         PreparedStatement stmtUpdate = conn.prepareStatement(sqlUpdate)) {
+
+	        // Trova l'ID dell'utente corrispondente al codice fiscale
+	        stmtFindId.setString(1, utente.getCodiceFiscale());
+	        try (ResultSet rs = stmtFindId.executeQuery()) {
+	            if (rs.next()) {
+	                int idUtente = rs.getInt("id");
+
+	                // Esegui l'aggiornamento del record utente con l'ID trovato
+	                stmtUpdate.setString(1, utente.getNome());
+	                stmtUpdate.setString(2, utente.getCognome());
+	                stmtUpdate.setString(3, utente.getEmail());
+	                stmtUpdate.setDate(4, new java.sql.Date(utente.getDataNascita().getTime()));
+	                stmtUpdate.setString(5, utente.getComuneDiNascita());
+	                stmtUpdate.setString(6, utente.getProvincia());
+	                stmtUpdate.setString(7, utente.getComuneDiResidenza());
+	                stmtUpdate.setString(8, utente.getVia());
+	                stmtUpdate.setString(9, utente.getNumeroCivico());
+	                stmtUpdate.setString(10, utente.getCap());
+	                stmtUpdate.setInt(11, idUtente);
+
+	                stmtUpdate.executeUpdate();
+	            } else {
+	                // Gestisci il caso in cui non viene trovato nessun utente con il codice fiscale specificato
+	                // (ad esempio, sollevando un'eccezione o registrando un messaggio di errore)
+	            }
+	        }
+	    }
+	}
+	*/
+	/*
+    @Override
+    public void update(UtenteDTO utente) throws SQLException {
+        String sql = "UPDATE utenti SET nome = ?, cognome = ?, email = ?, dataNascita = ?, "
+                + "comuneDiNascita = ?, provincia = ?, comuneDiResidenza = ?, via = ?, "
+                + "numeroCivico = ?, cap = ? WHERE codiceFiscale = ?";
+        try (Connection conn = getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, utente.getNome());
+            stmt.setString(2, utente.getCognome());
+            stmt.setString(3, utente.getEmail());
+            stmt.setDate(4, new java.sql.Date(utente.getDataNascita().getTime())); // Assumendo che getDataNascita() ritorni un java.util.Date
+            stmt.setString(5, utente.getComuneDiNascita());
+            stmt.setString(6, utente.getProvincia());
+            stmt.setString(7, utente.getComuneDiResidenza());
+            stmt.setString(8, utente.getVia());
+            stmt.setString(9, utente.getNumeroCivico());
+            stmt.setString(10, utente.getCap());
+            stmt.setString(11, utente.getCodiceFiscale());
+
+            stmt.executeUpdate();
+        }
+    }
+ */
+	@Override
+	public void update(UtenteDTO utente) throws SQLException {
+	    String sqlUtenti = "UPDATE utenti SET nome = ?, cognome = ?, dataNascita = ?, "
+	            + "comuneDiNascita = ?, provincia = ?, comuneDiResidenza = ?, via = ?, "
+	            + "numeroCivico = ?, cap = ? WHERE codiceFiscale = ?";
+	    String sqlLogin = "UPDATE login SET email = ? WHERE Id = (SELECT Id FROM utenti WHERE codiceFiscale = ?)";
+
+	    try (Connection conn = getConnection();
+	         PreparedStatement stmtUtenti = conn.prepareStatement(sqlUtenti);
+	         PreparedStatement stmtLogin = conn.prepareStatement(sqlLogin)) {
+
+	        stmtUtenti.setString(1, utente.getNome());
+	        stmtUtenti.setString(2, utente.getCognome());
+	        stmtUtenti.setDate(3, new java.sql.Date(utente.getDataNascita().getTime()));
+	        stmtUtenti.setString(4, utente.getComuneDiNascita());
+	        stmtUtenti.setString(5, utente.getProvincia());
+	        stmtUtenti.setString(6, utente.getComuneDiResidenza());
+	        stmtUtenti.setString(7, utente.getVia());
+	        stmtUtenti.setString(8, utente.getNumeroCivico());
+	        stmtUtenti.setString(9, utente.getCap());
+	        stmtUtenti.setString(10, utente.getCodiceFiscale());
+	        stmtUtenti.executeUpdate();
+
+	        stmtLogin.setString(1, utente.getEmail());
+	        stmtLogin.setString(2, utente.getCodiceFiscale());
+	        stmtLogin.executeUpdate();
+	    }
+	}
+
 
 	/*
 	 * public void inserisci(UtenteDTO utente, String idUtente) throws SQLException

@@ -38,7 +38,7 @@ public class UtenteServletDB extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException { // Ottenere il ruolo dell'utente dalla sessione o da altri meccanismi
 													// di autenticazione
-
+		
 		String action = request.getParameter("action");
 		try {
 			switch (action) {
@@ -114,58 +114,52 @@ public class UtenteServletDB extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	        throws ServletException, IOException {
 
-		String codiceFiscale = request.getParameter("codiceFiscale");
-		String idUtente = request.getParameter("idUtente");
-		String action = request.getParameter("action");
+	    String codiceFiscale = request.getParameter("codiceFiscale");
+	    String action = request.getParameter("action");
 
-		try {
-			if (idUtente != null && !idUtente.isEmpty()) {
-				// L'ID utente è stato recuperato correttamente
-				if ("create".equals(action)) {
-					// Recupera l'oggetto LoginDTO associato all'idUtente
-					LoginDTO login = recuperLoginDaIdUtente(idUtente);
-					if (login != null) {
-						UtenteDTO utente = creaUtenteDTO(request);
-						// Verifica che i parametri utente siano validi
-						if (utente != null) {
-							// Procedi con l'inserimento
-							// Assumi che 'utente' sia un oggetto UtenteDTO popolato con i dati del form
-							// e che 'idUtente' sia l'ID dell'utente come stringa
-							gestioneUtenti.inserisci(utente, idUtente);
-
-							response.sendRedirect("ProdottoServlet?action=list");
-
-						} else {
-							// Messaggio di errore se i parametri utente non sono validi
-							request.setAttribute("errore",
-									"Parametri utente non validi. Impossibile inserire l'utente.");
-							request.getRequestDispatcher("views/errore.jsp").forward(request, response);
-						}
-					} else {
-						// Messaggio di errore se l'oggetto LoginDTO non è stato trovato per l'idUtente
-						request.setAttribute("errore", "Nessun utente trovato per l'ID specificato.");
-						request.getRequestDispatcher("views/errore.jsp").forward(request, response);
-					}
-				} else if ("update".equals(action)) {
-					doPut(request, response); // Chiamata diretta a doPut per l'aggiornamento
-				} else {
-					// Messaggio di errore se l'azione non è supportata
-					request.setAttribute("errore", "Azione non supportata.");
-					request.getRequestDispatcher("views/errore.jsp").forward(request, response);
-				}
-			} else {
-				// Messaggio di errore se l'ID utente non è stato recuperato correttamente
-				request.setAttribute("errore", "ID utente non valido.");
-				request.getRequestDispatcher("views/errore.jsp").forward(request, response);
-			}
-		} catch (SQLException | ClassNotFoundException e) {
-			e.printStackTrace();
-			// Messaggio di errore se si verifica un'eccezione durante l'accesso al database
-			request.setAttribute("errore", "Errore durante l'accesso al database: " + e.getMessage());
-			request.getRequestDispatcher("views/errore.jsp").forward(request, response);
-		}
+	    try {
+	        if ("update".equals(action)) {
+	            // Gestisci prima l'aggiornamento
+	            doPut(request, response); // Chiamata diretta a doPut per l'aggiornamento
+	        } else if ("create".equals(action)) {
+	            String idUtente = request.getParameter("idUtente");
+	            if (idUtente != null && !idUtente.isEmpty()) {
+	                // Recupera l'oggetto LoginDTO associato all'idUtente solo per l'azione di creazione
+	                LoginDTO login = recuperLoginDaIdUtente(idUtente);
+	                if (login != null) {
+	                    UtenteDTO utente = creaUtenteDTO(request);
+	                    if (utente != null) {
+	                        // Procedi con l'inserimento
+	                        gestioneUtenti.inserisci(utente, idUtente);
+	                        response.sendRedirect("ProdottoServlet?action=list");
+	                    } else {
+	                        // Messaggio di errore se i parametri utente non sono validi
+	                        request.setAttribute("errore", "Parametri utente non validi. Impossibile inserire l'utente.");
+	                        request.getRequestDispatcher("views/errore.jsp").forward(request, response);
+	                    }
+	                } else {
+	                    // Messaggio di errore se l'oggetto LoginDTO non è stato trovato per l'idUtente
+	                    request.setAttribute("errore", "Nessun utente trovato per l'ID specificato.");
+	                    request.getRequestDispatcher("views/errore.jsp").forward(request, response);
+	                }
+	            } else {
+	                // Messaggio di errore se l'ID utente non è stato recuperato correttamente per l'azione di creazione
+	                request.setAttribute("errore", "ID utente non valido per la creazione.");
+	                request.getRequestDispatcher("views/errore.jsp").forward(request, response);
+	            }
+	        } else {
+	            // Gestisci l'errore se l'azione non è né creazione né aggiornamento
+	            request.setAttribute("errore", "Azione non supportata.");
+	            request.getRequestDispatcher("views/errore.jsp").forward(request, response);
+	        }
+	    } catch (SQLException | ClassNotFoundException e) {
+	        e.printStackTrace();
+	        // Messaggio di errore se si verifica un'eccezione durante l'accesso al database
+	        request.setAttribute("errore", "Errore durante l'accesso al database: " + e.getMessage());
+	        request.getRequestDispatcher("views/errore.jsp").forward(request, response);
+	    }
 	}
 
 	@Override

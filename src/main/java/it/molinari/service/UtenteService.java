@@ -4,6 +4,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import it.molinari.DAO.*;
+
 import it.molinari.DAO.LoginDAO;
 import it.molinari.DAO.UtenteDAO;
 import it.molinari.model.DatiAcquistoDTO;

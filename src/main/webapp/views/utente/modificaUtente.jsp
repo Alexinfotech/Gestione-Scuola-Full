@@ -28,7 +28,7 @@ if (utente != null && utente.getDataNascita() != null) {
 			<form id="updateUtenteForm" action="UtenteServletDB" method="POST">
 				<input type="hidden" name="action" value="update"> <input
 					type="hidden" name="_method" value="PUT"> <input
-					type="hidden" name="id" value="<%=utente.getCodiceFiscale()%>">
+					type="hidden" name="codiceFiscale" value="<%=utente.getCodiceFiscale()%>">
 
 				<div class="form-group">
 					<label for="ruolo">Ruolo</label> <input type="text"
@@ -113,3 +113,10 @@ if (utente != null && utente.getDataNascita() != null) {
 	</div>
 	<%@include file="../../views/struttura/footer.jsp"%>
 </body>
+<%
+    // Assicurati che l'oggetto utente non sia nullo e che abbia un codice fiscale
+    if (utente != null && utente.getCodiceFiscale() != null) {
+        // Stampa il codice fiscale nell'output del server
+        System.out.println("Codice Fiscale inviato dalla jsp: " + utente.getCodiceFiscale());
+    }
+%>
