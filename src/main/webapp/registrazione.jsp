@@ -27,7 +27,6 @@
 		</p>
 	</div>
 
-	<div id="corpoPrincipale" class="container">
 		<%
 		String errore = (String) request.getAttribute("errore");
 		if (errore != null && !errore.isEmpty()) {
@@ -36,7 +35,6 @@
 			//  out.println("<p class='alert alert-info'>Pronto per la registrazione.</p>");
 		}
 		%>
-	</div>
 
 	<%@include file="views/struttura/footer.jsp"%>
 </body>
