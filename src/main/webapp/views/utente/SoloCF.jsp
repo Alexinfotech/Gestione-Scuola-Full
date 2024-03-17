@@ -8,12 +8,11 @@ String nome = utente != null && utente.getNome() != null ? utente.getNome() : ""
 String cognome = utente != null && utente.getCognome() != null ? utente.getCognome() : "";
 
 String dataNascitaStr = utente != null && utente.getDataNascita() != null
-? new java.text.SimpleDateFormat("yyyy-MM-dd").format(utente.getDataNascita())
-: "";
+		? new java.text.SimpleDateFormat("yyyy-MM-dd").format(utente.getDataNascita())
+		: "";
 String comuneDiNascita = utente != null && utente.getComuneDiNascita() != null ? utente.getComuneDiNascita() : "";
 
 String provinvia = utente != null && utente.getProvincia() != null ? utente.getProvincia() : "";
-
 %>
 <head>
 <link rel="stylesheet"
@@ -46,10 +45,10 @@ String provinvia = utente != null && utente.getProvincia() != null ? utente.getP
 					id="cognome" name="cognome" required placeholder="Cognome">
 			</div>
 			<div class="form-group">
-					<select class="form-control" id="sesso" name="sesso" required>
-						<option value="M">Maschio</option>
-						<option value="F">Femmina</option>
-				</div>
+				<select class="form-control" id="sesso" name="sesso" required>
+					<option value="M">Maschio</option>
+					<option value="F">Femmina</option>
+			</div>
 			<div class="form-group">
 				<input type="date" class="form-control" style="color: black;"
 					id="dataNascita" name="dataNascita" min="1900-01-01" required>
@@ -94,7 +93,7 @@ String provinvia = utente != null && utente.getProvincia() != null ? utente.getP
 			</p>
 
 
-			
+
 		</div>
 	</div>
 	<script>

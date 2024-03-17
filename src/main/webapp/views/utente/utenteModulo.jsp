@@ -12,8 +12,8 @@ String nome = utente != null && utente.getNome() != null ? utente.getNome() : ""
 String cognome = utente != null && utente.getCognome() != null ? utente.getCognome() : "";
 
 String dataNascitaStr = utente != null && utente.getDataNascita() != null
-        ? new java.text.SimpleDateFormat("yyyy-MM-dd").format(utente.getDataNascita())
-        : "";
+		? new java.text.SimpleDateFormat("yyyy-MM-dd").format(utente.getDataNascita())
+		: "";
 String comuneDiNascita = utente != null && utente.getComuneDiNascita() != null ? utente.getComuneDiNascita() : "";
 
 String comuneDiResidenza = utente != null && utente.getComuneDiResidenza() != null ? utente.getComuneDiResidenza() : "";
@@ -40,104 +40,104 @@ String idUtente = idUtenteInteger.toString();
 }
 </style>
 <body>
-	
-		<div id="corpoPrincipale">
-			<h2 style="color: #1e90ff;">Inserisci tua nagrafica </h2>
-			<form id="createUtenteForm" action="UtenteServletDB" method="POST">
-				<input type="hidden" name="action" value="create">
-				<input type="hidden" name="idUtente" value="<%= idUtente %>">
-				
-				<!-- Quì forse qualcosa di interessante sono riuscto a farlo-->
-				<div class="form-group">
-					<input type="text" class="form-control" style="color: black;"
-						id="nome" name="nome" required placeholder="Nome">
-				</div>
-				<div class="form-group">
-					<input type="text" class="form-control" style="color: black;"
-						id="cognome" name="cognome" required placeholder="Cognome">
-				</div>
-				<div class="form-group">
-					<select class="form-control" id="sesso" name="sesso" required>
-						<option value="M">Maschio</option>
-						<option value="F">Femmina</option>
-				</div>
+
+	<div id="corpoPrincipale">
+		<h2 style="color: #1e90ff;">Inserisci tua nagrafica</h2>
+		<form id="createUtenteForm" action="UtenteServletDB" method="POST">
+			<input type="hidden" name="action" value="create"> <input
+				type="hidden" name="idUtente" value="<%=idUtente%>">
+
+			<!-- Quì forse qualcosa di interessante sono riuscto a farlo-->
+			<div class="form-group">
+				<input type="text" class="form-control" style="color: black;"
+					id="nome" name="nome" required placeholder="Nome">
+			</div>
+			<div class="form-group">
+				<input type="text" class="form-control" style="color: black;"
+					id="cognome" name="cognome" required placeholder="Cognome">
+			</div>
+			<div class="form-group">
+				<select class="form-control" id="sesso" name="sesso" required>
+					<option value="M">Maschio</option>
+					<option value="F">Femmina</option>
+			</div>
 
 
-				
-				<div class="form-group">
-					<input type="date" class="form-control" style="color: black;"
-						id="dataNascita" name="dataNascita" min="1900-01-01" required>
-				</div>
-				<div class="form-group">
-					<input type="text" class="form-control" style="color: black;"
-						id="comuneDiNascita" name="comuneDiNascita" required
-						placeholder="Comune di Nascita">
-				</div>
-				<div class="form-group">
-					<input type="text" class="form-control" style="color: black;"
-						id="provincia" name="provincia" maxlength="2" required
-						placeholder="Provincia">
-				</div>
-				<div class="form-group">
-					<input type="text" class="form-control" style="color: black;"
-						id="comuneDiResidenza" name="comuneDiResidenza" required
-						placeholder="Comune Di Residenza">
-				</div>
 
-				<div class="form-group">
-					<input type="text" class="form-control" style="color: black;"
-						id="via" name="via" required placeholder="Via">
-				</div>
-				<div class="form-group">
-					<input type="text" class="form-control" style="color: black;"
-						id="numeroCivico" name="numeroCivico" required
-						placeholder="Numero civico">
-				</div>
-				<div class="form-group">
-					<input type="number" class="form-control" style="color: black;"
-						id="cap" name="cap" min="00000" max="99999" required
-						placeholder="CAP">
-				</div>
-				<div class="form-group">
-					<div class="input-group">
-						<input type="text" class="form-control"
-							style="color: red; font-weight: bold;" id="codiceFiscale"
-							name="codiceFiscale" size="1" value="<%=codiceFiscale%>" required
-							placeholder="Codice Fiscale" pattern="[A-Z0-9]{16}"> <span
-							id="erroreCodiceFiscale" class="text-danger"></span>
-						<!-- Elemento per l'errore -->
-						<select class="form-control" id="listaCodiciFiscali"
-							name="listaCodiciFiscali" size="1">
-							<!-- Le opzioni saranno aggiunte qui dinamicamente -->
-						</select>
-					</div>
-				</div>
+			<div class="form-group">
+				<input type="date" class="form-control" style="color: black;"
+					id="dataNascita" name="dataNascita" min="1900-01-01" required>
+			</div>
+			<div class="form-group">
+				<input type="text" class="form-control" style="color: black;"
+					id="comuneDiNascita" name="comuneDiNascita" required
+					placeholder="Comune di Nascita">
+			</div>
+			<div class="form-group">
+				<input type="text" class="form-control" style="color: black;"
+					id="provincia" name="provincia" maxlength="2" required
+					placeholder="Provincia">
+			</div>
+			<div class="form-group">
+				<input type="text" class="form-control" style="color: black;"
+					id="comuneDiResidenza" name="comuneDiResidenza" required
+					placeholder="Comune Di Residenza">
+			</div>
 
-				<div id="messaggi" style="color: red;"></div>
+			<div class="form-group">
+				<input type="text" class="form-control" style="color: black;"
+					id="via" name="via" required placeholder="Via">
+			</div>
+			<div class="form-group">
+				<input type="text" class="form-control" style="color: black;"
+					id="numeroCivico" name="numeroCivico" required
+					placeholder="Numero civico">
+			</div>
+			<div class="form-group">
+				<input type="number" class="form-control" style="color: black;"
+					id="cap" name="cap" min="00000" max="99999" required
+					placeholder="CAP">
+			</div>
+			<div class="form-group">
+				<div class="input-group">
+					<input type="text" class="form-control"
+						style="color: red; font-weight: bold;" id="codiceFiscale"
+						name="codiceFiscale" size="1" value="<%=codiceFiscale%>" required
+						placeholder="Codice Fiscale" pattern="[A-Z0-9]{16}"> <span
+						id="erroreCodiceFiscale" class="text-danger"></span>
+					<!-- Elemento per l'errore -->
+					<select class="form-control" id="listaCodiciFiscali"
+						name="listaCodiciFiscali" size="1">
+						<!-- Le opzioni saranno aggiunte qui dinamicamente -->
+					</select>
+				</div>
+			</div>
 
-
-				<!-- Bottone per generare il Codice Fiscale, qui funziona, ma sto lavoro sul front è da randagio -->
-				<button type="button" class="btn btn-secondary"
-					id="generateCodiceFiscale" style="color: red;">
-					<strong>Genera Codice Fiscale</strong>
-				</button>
-
-				<button type="submit" class="btn btn-secondary"
-					style="color: #1e90ff;">
-					<strong>Aggiungi Anagrafica</strong>
-				</button>
-				<p style="color: #1e90ff; margin: 0;">
-					<strong>Per generare automaticamente il Codice Fiscale
-						inserire:</strong>
-				</p>
-				<p style="color: #1e90ff; margin: 0;">
-					<strong>Nome, Cognome, Sesso, Data di Nascita, Comune Di
-						Nascita e Provincia.</strong>
-				</p>
+			<div id="messaggi" style="color: red;"></div>
 
 
-			</form>
-		</div>
+			<!-- Bottone per generare il Codice Fiscale, qui funziona, ma sto lavoro sul front è da randagio -->
+			<button type="button" class="btn btn-secondary"
+				id="generateCodiceFiscale" style="color: red;">
+				<strong>Genera Codice Fiscale</strong>
+			</button>
+
+			<button type="submit" class="btn btn-secondary"
+				style="color: #1e90ff;">
+				<strong>Aggiungi Anagrafica</strong>
+			</button>
+			<p style="color: #1e90ff; margin: 0;">
+				<strong>Per generare automaticamente il Codice Fiscale
+					inserire:</strong>
+			</p>
+			<p style="color: #1e90ff; margin: 0;">
+				<strong>Nome, Cognome, Sesso, Data di Nascita, Comune Di
+					Nascita e Provincia.</strong>
+			</p>
+
+
+		</form>
+	</div>
 	</div>
 	<script>
 document.addEventListener('DOMContentLoaded', () => {
@@ -185,11 +185,11 @@ document.addEventListener('DOMContentLoaded', () => {
 	    }
 	});
 	</script>
-<script>
-    console.log("idUtente:", "<%= idUtente %>");
-    console.log("Tipo di dato di idUtente:", typeof <%= idUtente %>);
-    console.log("ruolo:", "<%= ruolo %>");
-    console.log("Tipo di dato di idUtente:", typeof <%= ruolo %>);
+	<script>
+    console.log("idUtente:", "<%=idUtente%>");
+    console.log("Tipo di dato di idUtente:", typeof <%=idUtente%>);
+    console.log("ruolo:", "<%=ruolo%>");
+    console.log("Tipo di dato di idUtente:", typeof <%=ruolo%>);
 </script>
 
 

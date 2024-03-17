@@ -3,7 +3,8 @@
 
 <%@page import="java.util.List"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
-<% String ruolo3 = (String) request.getSession().getAttribute("ruolo");
+<%
+String ruolo3 = (String) request.getSession().getAttribute("ruolo");
 %>
 
 

@@ -27,7 +27,7 @@
 		</p>
 	</div>
 
-		<%
+	<%
 		String errore = (String) request.getAttribute("errore");
 		if (errore != null && !errore.isEmpty()) {
 			out.println("<p class='alert alert-danger'>Errore: " + errore + "</p>");

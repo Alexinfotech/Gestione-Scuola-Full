@@ -2,7 +2,9 @@
 <%@page import="java.util.List"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%@page import="it.molinari.service.Ruolo"%>
-<% String ruolo = (String) request.getSession().getAttribute("ruolo");%>
+<%
+String ruolo = (String) request.getSession().getAttribute("ruolo");
+%>
 
 
 

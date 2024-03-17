@@ -136,7 +136,7 @@ public class UtenteDTO {
 		return "UtenteDTO [id=" + id + ",codiceFiscale=" + codiceFiscale + ", nome=" + nome + ", cognome=" + cognome
 				+ ",sesso=" + sesso + ", email=" + email + ",  dataNascita=" + dataNascita + ", comuneDiNascita="
 				+ comuneDiNascita + ", comuneDiResidenza=" + comuneDiResidenza + ",provincia=" + provincia + ", via="
-				+ via + ", numeroCivico=" + numeroCivico + ", cap=" + cap +  ", ruolo=" + ruolo +"]";
+				+ via + ", numeroCivico=" + numeroCivico + ", cap=" + cap + ", ruolo=" + ruolo + "]";
 	}
 
 	public String getRuolo() {
@@ -146,6 +146,5 @@ public class UtenteDTO {
 	public void setRuolo(String ruolo) {
 		this.ruolo = ruolo;
 	}
-
 
 }

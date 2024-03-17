@@ -100,16 +100,14 @@ Map<String, List<OrdineDTO>> ordiniPerData = (Map<String, List<OrdineDTO>>) requ
 										<td>
 											<%
 											for (Map.Entry<String, Double> dettaglio : ordine.getDettagliProdotti().entrySet()) {
-											%>
-											<%=dettaglio.getKey()%> <br> <%
+											%> <%=dettaglio.getKey()%> <br> <%
  }
  %>
 										</td>
 										<td>
 											<%
 											for (Map.Entry<String, Double> dettaglio : ordine.getDettagliProdotti().entrySet()) {
-											%>
-											€<%=String.format("%.2f", dettaglio.getValue())%> <br>
+											%> €<%=String.format("%.2f", dettaglio.getValue())%> <br>
 											<%
 											}
 											%>

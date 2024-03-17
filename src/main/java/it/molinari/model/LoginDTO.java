@@ -4,15 +4,14 @@ public class LoginDTO {
 	private String email;
 	private String password;
 	private Integer idUtente;
-    private String ruolo; // Aggiungi questa linea
-
+	private String ruolo; // Aggiungi questa linea
 
 	public LoginDTO() {
 	}
 
 	// Costruttore con parametri
 	public LoginDTO(String emailLogin, String password) {
-	
+
 		this.password = password;
 	}
 
@@ -32,7 +31,6 @@ public class LoginDTO {
 		this.password = password;
 	}
 
-
 	public Integer getIdUtente() {
 		return idUtente;
 	}
@@ -41,7 +39,6 @@ public class LoginDTO {
 		this.idUtente = idUtente;
 	}
 
-
 	public String getRuolo() {
 		return ruolo;
 	}
@@ -49,10 +46,11 @@ public class LoginDTO {
 	public void setRuolo(String ruolo) {
 		this.ruolo = ruolo;
 	}
-	
-    @Override
-    public String toString() {
-        return "LoginDTO [email=" + email + ", password=" + password + ", idUtente=" + idUtente + ", ruolo=" + ruolo + "]";
-    }
+
+	@Override
+	public String toString() {
+		return "LoginDTO [email=" + email + ", password=" + password + ", idUtente=" + idUtente + ", ruolo=" + ruolo
+				+ "]";
+	}
 
 }

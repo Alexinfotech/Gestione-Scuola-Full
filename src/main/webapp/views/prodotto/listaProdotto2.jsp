@@ -55,17 +55,21 @@ String ruolo = (String) session.getAttribute("ruolo");
 						<th class="header-custom">Nome Prodotto</th>
 						<th class="header-custom">Prezzo</th>
 						<th class="header-custom">Descrizione Prodotto</th>
-						<% 	
+						<%
 						if (Ruolo.AMMINISTRATORE.equals(ruolo)) {
 						%>
-						<th  class="header-custom">Quantita Prodotto</th>
-						<th  class="header-custom">Recensioni</th>
-						<%} %>
-						<% 	
+						<th class="header-custom">Quantita Prodotto</th>
+						<th class="header-custom">Recensioni</th>
+						<%
+						}
+						%>
+						<%
 						if (Ruolo.UTENTE_NAVIGATORE.equals(ruolo)) {
 						%>
 						<th class="header-custom">Quantita Prodotto</th>
-						<%} %>
+						<%
+						}
+						%>
 						<%
 						if (Ruolo.UTENTE_NAVIGATORE.equals(ruolo)) {
 						%>

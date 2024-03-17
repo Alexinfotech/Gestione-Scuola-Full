@@ -8,8 +8,6 @@ String codiceFiscale = utente != null && utente.getCodiceFiscale() != null ? ute
 String nome = utente != null && utente.getNome() != null ? utente.getNome() : "";
 String cognome = utente != null && utente.getCognome() != null ? utente.getCognome() : "";
 
-
-
 String dataNascitaStr = utente != null && utente.getDataNascita() != null
 		? new java.text.SimpleDateFormat("yyyy-MM-dd").format(utente.getDataNascita())
 		: "";

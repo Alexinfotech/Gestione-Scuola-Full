@@ -10,9 +10,10 @@
 
 	<div id="login" class="container mt-4">
 		<h2 class="mb-4">Login</h2>
-		<form id="loginForm" action="LoginServletDB?action=login" method="POST">
-			
-			
+		<form id="loginForm" action="LoginServletDB?action=login"
+			method="POST">
+
+
 			<div class="form-group mb-3">
 				<label for="email">Email:</label> <input type="email"
 					class="form-control" id="email" name="email"
@@ -32,9 +33,7 @@
 			<a href="registrazione.jsp" class="text-dark">Registrati ora</a>
 		</p>
 
-	<div id="corpoPrincipale" class="container mt-4">
-
-	</div>
+		<div id="corpoPrincipale" class="container mt-4"></div>
 
 		<%
 		String errore = (String) request.getAttribute("errore");

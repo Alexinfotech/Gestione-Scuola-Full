@@ -112,7 +112,7 @@ String ruolo = (String) request.getSession().getAttribute("ruolo");
 	</div>
 
 </body>
-	<%@include file="../../views/struttura/footer.jsp"%>
+<%@include file="../../views/struttura/footer.jsp"%>
 
 
 

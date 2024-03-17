@@ -1,93 +1,110 @@
 /* Stile per html e body */
-html, body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    background-color: white; /* Sfondo chiaro */
-    background-image: url('welcome.jpg');
-    background-size: cover; /* Regola per adattare l'immagine allo schermo */
-    background-position: center; /* Regola per centrare l'immagine */
-    /* Altre proprietà di stile se necessario */
+html,
+body {
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+	background-color: white;
+	/* Sfondo chiaro */
+	background-image: url('welcome.jpg');
+	background-size: cover;
+	/* Regola per adattare l'immagine allo schermo */
+	background-position: center;
+	/* Regola per centrare l'immagine */
+	/* Altre proprietà di stile se necessario */
 }
 
 /* Imposta il container principale come flex container */
 #mainContainer {
-    display: flex;
-    flex-direction: row;
+	display: flex;
+	flex-direction: row;
 }
 
 /* Stile per il menu */
 #menu {
-    width: 20%;
-    background: white; 
-    color: #1e90ff; /* Colore del testo nel menu */
-    padding: 15px;
+	width: 20%;
+	background: white;
+	color: #1e90ff;
+	/* Colore del testo nel menu */
+	padding: 15px;
 }
 
 /* Stile per il corpo principale */
 #corpoPrincipale {
-    width: 80%;
-    padding: 25px;
-    flex: 1;
-    background-color: white; /* Sfondo bianco */
+	width: 80%;
+	padding: 25px;
+	flex: 1;
+	background-color: white;
+	/* Sfondo bianco */
 }
 
 /* Stile per il login */
 #login {
-    width: 40%;
-    padding: 25px;
-    flex: 1;
-    background-color: white; /* Sfondo bianco */
+	width: 40%;
+	padding: 25px;
+	flex: 1;
+	background-color: white;
+	/* Sfondo bianco */
 }
 
 /* Stile per l'header */
 #header {
-    background: #1e90ff; /* Sfondo blu */
-    padding: 20px;
-    text-align: center;
-    color: white; /* Testo bianco */
+	background: #1e90ff;
+	/* Sfondo blu */
+	padding: 20px;
+	text-align: center;
+	color: white;
+	/* Testo bianco */
 }
 
 /* Stile per il footer */
 #footer {
-    background: #1e90ff; /* Sfondo blu */
-    color: white; /* Testo bianco */
-    text-align: center;
-    padding: 10px;
-    margin-top: auto;
+	background: #1e90ff;
+	/* Sfondo blu */
+	color: white;
+	/* Testo bianco */
+	text-align: center;
+	padding: 10px;
+	margin-top: auto;
 }
 
 /* Stile per i link e il testo nelle liste */
-li, a {
-    color: white; /* Testo blu */
+li,
+a {
+	color: white;
+	/* Testo blu */
 }
 
 /* Stile personalizzato per la tabella */
 .table-custom {
-    width: 100%;
-    border-collapse: collapse;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Ombra leggera */
+	width: 100%;
+	border-collapse: collapse;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	/* Ombra leggera */
 }
 
 /* Stile per le celle della tabella */
-.table-custom th, .table-custom td {
-    border: 1px solid white;
-    padding: 8px;
-    text-align: left;
+.table-custom th,
+.table-custom td {
+	border: 1px solid white;
+	padding: 8px;
+	text-align: left;
 }
 
 /* Stile personalizzato per le intestazioni della tabella */
 .header-custom {
-    background-color: #1e90ff; /* Sfondo blu */
-    color: white;
+	background-color: #1e90ff;
+	/* Sfondo blu */
+	color: white;
 }
+
 /* Stile per l'icona della freccia */
 .bi.bi-arrow-right-circle {
-    font-size: 24px; /* Regola la dimensione dell'icona */
-    vertical-align: middle; /* Allinea l'icona verticalmente al testo */
+	font-size: 24px;
+	/* Regola la dimensione dell'icona */
+	vertical-align: middle;
+	/* Allinea l'icona verticalmente al testo */
 }
-
-

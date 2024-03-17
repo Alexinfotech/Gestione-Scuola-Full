@@ -34,5 +34,4 @@
 
 		</div>
 	</div>
-			<%@include file="../../views/struttura/footer.jsp"%>
-	
+	<%@include file="../../views/struttura/footer.jsp"%>

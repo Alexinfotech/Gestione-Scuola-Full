@@ -23,7 +23,7 @@ public class LoginServletDB extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
+
 		String action = request.getParameter("action");
 
 		if ("nuovoMagazziniere".equals(action)) {
@@ -92,7 +92,7 @@ public class LoginServletDB extends HttpServlet {
 				request.getRequestDispatcher("views/error.jsp").forward(request, response);
 			}
 		} else if ("registraMagazziniere".equals(action)) {
-			
+
 			String newEmail = request.getParameter("newEmail");
 			String newPassword = request.getParameter("newPassword");
 

@@ -38,7 +38,7 @@ public class UtenteServletDB extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException { // Ottenere il ruolo dell'utente dalla sessione o da altri meccanismi
 													// di autenticazione
-		
+
 		String action = request.getParameter("action");
 		try {
 			switch (action) {
@@ -115,7 +115,7 @@ public class UtenteServletDB extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
+
 		String codiceFiscale = request.getParameter("codiceFiscale");
 		String idUtente = request.getParameter("idUtente");
 		String action = request.getParameter("action");
