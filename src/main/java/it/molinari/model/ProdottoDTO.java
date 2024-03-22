@@ -9,6 +9,7 @@ public class ProdottoDTO {
 	private String iva; // Modifica il tipo di dato dell'IVA a String
 	private String descrizioneProdotto;
 	private String quantita;
+	private String categoriaProdotto;
 
 	public Integer getId() {
 		return id;
@@ -57,11 +58,19 @@ public class ProdottoDTO {
 	public void setQuantita(String quantita) {
 		this.quantita = quantita;
 	}
+	public String getCategoriaProdotto() {
+		return categoriaProdotto;
+	}
+
+	public void setCategoriaProdotto(String categoriaProdotto) {
+		this.categoriaProdotto = categoriaProdotto;
+	}
 
 	@Override
 	public String toString() {
 		return "ProdottoDTO [id=" + id + ", nomeProdotto=" + nomeProdotto + ", prezzo=" + prezzo + ", iva=" + iva
-				+ ", descrizioneProdotto=" + descrizioneProdotto + ", quntita=" + quantita + " ]";
+				+ ", descrizioneProdotto=" + descrizioneProdotto + ", quntita=" + quantita +  ", categoriaProdotto=" + categoriaProdotto + "]";
 	}
 
+	
 }

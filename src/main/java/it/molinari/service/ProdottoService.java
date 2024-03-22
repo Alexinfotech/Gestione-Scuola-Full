@@ -66,14 +66,33 @@ public class ProdottoService {
 		gestioneProdotto.create(prodotto);
 	}
 
-	public List<ProdottoDTO> recupera() throws ClassNotFoundException, SQLException {
-		List<ProdottoDTO> listaProdotto = gestioneProdotto.recupera();
+	public List<ProdottoDTO> recupera1() throws ClassNotFoundException, SQLException {
+		List<ProdottoDTO> listaProdotto = gestioneProdotto.recupera1();
 		List<ProdottoDTO> listaProdottoDTO = new ArrayList<>();
 		for (ProdottoDTO prodotto : listaProdotto) {
 			ProdottoDTO dto = ProdottoToProdottoDTO(prodotto);
 			listaProdottoDTO.add(dto);
 		}
 		return listaProdottoDTO;
+	}
+
+	public List<ProdottoDTO> recupera(String categoriaProdotto) throws ClassNotFoundException, SQLException {
+	    List<ProdottoDTO> listaProdotto;
+	    if (categoriaProdotto != null) {
+	        // Se è specificata una categoria, recupera solo i prodotti di quella categoria
+	        listaProdotto = gestioneProdotto.recupera(categoriaProdotto);
+	    } else {
+	        // Altrimenti, recupera tutti i prodotti
+	        listaProdotto = gestioneProdotto.recupera(categoriaProdotto);
+	    }
+	    
+	    // Converte la lista di prodotti in ProdottoDTO
+	    List<ProdottoDTO> listaProdottoDTO = new ArrayList<>();
+	    for (ProdottoDTO prodotto : listaProdotto) {
+	        ProdottoDTO dto = ProdottoToProdottoDTO(prodotto); // Assumi che esista un metodo ProdottoToProdottoDTO per convertire Prodotto in ProdottoDTO
+	        listaProdottoDTO.add(dto);
+	    }
+	    return listaProdottoDTO;
 	}
 
 	private ProdottoDTO ProdottoToProdottoDTO(ProdottoDTO prodotto) {
@@ -87,6 +106,8 @@ public class ProdottoService {
 		prodottoDTO.setIva(prodotto.getIva());
 		prodottoDTO.setDescrizioneProdotto(prodotto.getDescrizioneProdotto());
 		prodottoDTO.setQuantita(prodotto.getQuantita());
+		prodottoDTO.setCategoriaProdotto(prodotto.getCategoriaProdotto());
+
 
 		return prodottoDTO;
 	}
@@ -99,6 +120,8 @@ public class ProdottoService {
 		prodotto.setIva(prodottoDTO.getIva());
 		prodotto.setDescrizioneProdotto(prodottoDTO.getDescrizioneProdotto());
 		prodotto.setQuantita(prodottoDTO.getQuantita());
+		prodotto.setCategoriaProdotto(prodottoDTO.getCategoriaProdotto());
+
 
 		return prodotto;
 	}

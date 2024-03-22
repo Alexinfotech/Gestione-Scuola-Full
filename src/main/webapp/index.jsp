@@ -40,8 +40,7 @@
 		if (errore != null && !errore.isEmpty()) {
 			out.println("<div class='alert alert-danger'>" + errore + "</div>");
 		} else {
-			// Aggiungi un messaggio informativo se necessario
-			// out.println("<div class='alert alert-info'>Messaggio informativo.</div>");
+			;
 		}
 		%>
 	</div>
@@ -49,4 +48,3 @@
 	<%@include file="views/struttura/footer.jsp"%>
 
 </body>
-

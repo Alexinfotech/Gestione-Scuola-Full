@@ -36,5 +36,6 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry combineaccessrules="false" kind="src" path="/GestioneScuola_full_new7"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

@@ -133,7 +133,7 @@ public class UtenteServletDB extends HttpServlet {
 	                    if (utente != null) {
 	                        // Procedi con l'inserimento
 	                        gestioneUtenti.inserisci(utente, idUtente);
-	                        response.sendRedirect("ProdottoServlet?action=list");
+	            		    request.getRequestDispatcher("views/welcome.jsp").forward(request, response);
 	                    } else {
 	                        // Messaggio di errore se i parametri utente non sono validi
 	                        request.setAttribute("errore", "Parametri utente non validi. Impossibile inserire l'utente.");

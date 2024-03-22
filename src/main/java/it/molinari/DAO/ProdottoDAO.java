@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import it.molinari.model.ProdottoDTO;
-import it.molinari.model.UtenteDTO;
 
 public class ProdottoDAO extends Dao implements DaoInterface<ProdottoDTO> {
 
@@ -25,16 +24,28 @@ public class ProdottoDAO extends Dao implements DaoInterface<ProdottoDTO> {
 	}
 
 	public void create(ProdottoDTO prodotto) throws SQLException {
-		String sql = "INSERT INTO prodotto (nomeProdotto, prezzo, iva, descrizioneProdotto,quantita) VALUES (?, ?, ?, ?,?)";
-		try (Connection conn = getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
-			stmt.setString(1, prodotto.getNomeProdotto());
-			stmt.setString(2, prodotto.getPrezzo());
-			stmt.setString(3, prodotto.getIva());
-			stmt.setString(4, prodotto.getDescrizioneProdotto());
-			stmt.setString(5, prodotto.getQuantita());
-			stmt.executeUpdate();
-		}
+	    String sql = "INSERT INTO prodotto (nomeProdotto, prezzo, iva, descrizioneProdotto, quantita, categoria) VALUES (?, ?, ?, ?, ?, ?)";
+	    try (Connection conn = getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+	        // Stampa dei parametri prima dell'esecuzione della query
+	        System.out.println("Parametri del prodotto:");
+	        System.out.println("Nome Prodotto: " + prodotto.getNomeProdotto());
+	        System.out.println("Prezzo: " + prodotto.getPrezzo());
+	        System.out.println("IVA: " + prodotto.getIva());
+	        System.out.println("Descrizione Prodotto: " + prodotto.getDescrizioneProdotto());
+	        System.out.println("Quantità: " + prodotto.getQuantita());
+	        System.out.println("Categoria Prodotto: " + prodotto.getCategoriaProdotto());
+
+	        stmt.setString(1, prodotto.getNomeProdotto());
+	        stmt.setString(2, prodotto.getPrezzo());
+	        stmt.setString(3, prodotto.getIva());
+	        stmt.setString(4, prodotto.getDescrizioneProdotto());
+	        stmt.setString(5, prodotto.getQuantita());
+	        stmt.setString(6, prodotto.getCategoriaProdotto()); // Imposta il valore del parametro categoriaProdotto
+
+	        stmt.executeUpdate();
+	    }
 	}
+
 
 	public void delete(String id) throws SQLException {
 		String sql = "DELETE FROM prodotto WHERE id = ?";
@@ -129,7 +140,7 @@ public class ProdottoDAO extends Dao implements DaoInterface<ProdottoDTO> {
 		}
 	}
 
-	public List<ProdottoDTO> recupera() throws SQLException {
+	public List<ProdottoDTO> recupera1() throws SQLException {
 		List<ProdottoDTO> listaProdotto = new ArrayList<>();
 		String sql = "SELECT * FROM prodotto";
 		try (Connection conn = getConnection();
@@ -140,6 +151,27 @@ public class ProdottoDAO extends Dao implements DaoInterface<ProdottoDTO> {
 			}
 		}
 		return listaProdotto;
+	}
+
+	public List<ProdottoDTO> recupera(String categoriaProdotto) throws SQLException {
+	    List<ProdottoDTO> listaProdotto = new ArrayList<>();
+	    String sql = "SELECT * FROM prodotto WHERE categoria = ?";
+	 
+	    try (Connection conn = getConnection();
+	         PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+	        // Imposta il parametro della categoria solo se necessario
+	        if (categoriaProdotto != null && !categoriaProdotto.isEmpty()) {
+	            stmt.setString(1, categoriaProdotto);
+	        }
+
+	        try (ResultSet resultSet = stmt.executeQuery()) {
+	            while (resultSet.next()) {
+	                listaProdotto.add(extractProdottoFromResultSet(resultSet));
+	            }
+	        }
+	    }
+	    return listaProdotto;
 	}
 
 	private ProdottoDTO extractProdottoFromResultSet(ResultSet resultSet) throws SQLException {

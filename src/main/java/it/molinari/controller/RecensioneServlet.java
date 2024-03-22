@@ -102,7 +102,7 @@ public class RecensioneServlet extends HttpServlet {
 					request.getRequestDispatcher("views/errore.jsp").forward(request, response);
 				} else {
 					gestioneRecensione.delete(idToDelete);
-					response.sendRedirect("ProdottoServlet?action=list");
+				    request.getRequestDispatcher("views/welcome.jsp").forward(request, response);
 				}
 				break;
 			default:
@@ -129,6 +129,7 @@ public class RecensioneServlet extends HttpServlet {
 				// Recupero dell'email utente dalla sessione
 				String email = (String) request.getSession().getAttribute("email");
 
+
 				// Creazione dell'oggetto RecensioneDTO con le informazioni necessarie
 				RecensioneDTO recensione = creaRecensioneDTO(request);
 
@@ -140,7 +141,7 @@ public class RecensioneServlet extends HttpServlet {
 				gestioneRecensione.create(recensione);
 
 				// Redirezione o gestione della risposta
-				response.sendRedirect("ProdottoServlet?action=list");
+			    request.getRequestDispatcher("views/welcome.jsp").forward(request, response);
 			} else {
 				request.setAttribute("errore", "Azione non supportata.");
 				request.getRequestDispatcher("views/errore.jsp").forward(request, response);
@@ -205,7 +206,7 @@ public class RecensioneServlet extends HttpServlet {
 			// Chiamata al metodo delete del servizio, passando l'ID come int.
 			gestioneRecensione.delete(idInt);
 			// Redirezione alla lista dei prodotti dopo l'eliminazione.
-			response.sendRedirect("ProdottoServlet?action=list");
+		    request.getRequestDispatcher("views/welcome.jsp").forward(request, response);
 		} catch (NumberFormatException e) {
 			// Gestione dell'errore di conversione dell'ID.
 			e.printStackTrace(); // Log dell'errore

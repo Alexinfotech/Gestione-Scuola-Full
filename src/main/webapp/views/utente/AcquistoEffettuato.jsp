@@ -77,10 +77,11 @@ String ruolo = (String) request.getSession().getAttribute("ruolo");
 				</div>
 			</div>
 			<div class="text-center mt-4">
-				<a href="ProdottoServlet?action=list"
+				<a href="/GestioneScuola_full/views/welcome.jsp"
 					class="btn btn-primary btn-primary-custom">Continua gli
 					acquisti</a>
 			</div>
+
 			<%
 			} else {
 			%>

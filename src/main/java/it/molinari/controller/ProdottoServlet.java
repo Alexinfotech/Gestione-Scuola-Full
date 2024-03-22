@@ -38,11 +38,24 @@ public class ProdottoServlet extends HttpServlet {
 				request.setAttribute("prodotto", new ProdottoDTO());
 				request.getRequestDispatcher("views/prodotto/SearchProdotto.jsp").forward(request, response);
 				break;
-			case "list":
-				List<ProdottoDTO> listaProdotto = gestioneProdotto.recupera();
+			/*case "list":
+				List<ProdottoDTO> listaProdotto = gestioneProdotto.recupera(action);
 				request.setAttribute("listaProdotto", listaProdotto);
 				request.getRequestDispatcher("views/prodotto/listaProdotto2.jsp").forward(request, response);
-				break;
+				break;*/
+			case "list":
+			    // Recupera il parametro categoriaProdotto dalla richiesta HTTP
+			    String categoriaProdotto = request.getParameter("categoriaProdotto");
+			    
+			    // Chiama il metodo recupera del tuo servizio, passando la categoria del prodotto come parametro
+			    // Assicurati che il metodo recupera nel servizio gestioneProdotto sia aggiornato per accettare questo parametro
+			    List<ProdottoDTO> listaProdotto = gestioneProdotto.recupera(categoriaProdotto);
+			    
+			    // Imposta la lista dei prodotti come attributo della richiesta e inoltra al JSP per la visualizzazione
+			    request.setAttribute("listaProdotto", listaProdotto);
+			    request.getRequestDispatcher("views/prodotto/listaProdotto2.jsp").forward(request, response);
+			    break;
+
 
 			case "dettaglio":
 				String idDettaglio = request.getParameter("id");
@@ -67,6 +80,7 @@ public class ProdottoServlet extends HttpServlet {
 					request.getRequestDispatcher("/views/errorPage.jsp").forward(request, response);
 				}
 				break;
+				
 			/*
 			 * case "acquista": String prodottoIdStr = request.getParameter("prodottoId");
 			 * if (prodottoIdStr != null && !prodottoIdStr.trim().isEmpty()) { try { //
@@ -114,6 +128,7 @@ public class ProdottoServlet extends HttpServlet {
 			 * request.getRequestDispatcher("views/errore.jsp").forward(request, response);
 			 * } break;
 			 */
+				
 			case "acquista":
 				String prodottoIdStr = request.getParameter("prodottoId");
 				if (prodottoIdStr != null && !prodottoIdStr.trim().isEmpty()) {
@@ -147,12 +162,13 @@ public class ProdottoServlet extends HttpServlet {
 					request.getRequestDispatcher("views/errore.jsp").forward(request, response);
 				}
 				break;
+				
 
 			case "search":
 				String nomeProdotto = request.getParameter("nomeProdotto");
 				ProdottoDTO prodotto = null;
 				try {
-					List<ProdottoDTO> listaProdotti = gestioneProdotto.recupera();
+					List<ProdottoDTO> listaProdotti = gestioneProdotto.recupera1();
 					for (ProdottoDTO p : listaProdotti) {
 						if (p.getNomeProdotto().equals(nomeProdotto)) {
 							prodotto = p;
@@ -234,7 +250,7 @@ public class ProdottoServlet extends HttpServlet {
 			gestioneProdotto.delete(idInt, ruoloUtente);
 
 			// Redireziona l'utente alla lista dei prodotti dopo l'eliminazione
-			response.sendRedirect("ProdottoServlet?action=list");
+		    request.getRequestDispatcher("views/welcome.jsp").forward(request, response);
 		} catch (NumberFormatException e) {
 			e.printStackTrace();
 			request.setAttribute("errorMessage", "Formato ID non valido. Assicurati che l'ID sia un numero.");
@@ -258,8 +274,12 @@ public class ProdottoServlet extends HttpServlet {
 		try {
 			if ("create".equals(action)) {
 				ProdottoDTO prodotto = creaProdottoDTO(request);
+				System.out.println("Categoria prodotto selezionata: " + request.getParameter("categoriaProdotto"));
+
 				gestioneProdotto.create(prodotto);
-				response.sendRedirect("ProdottoServlet?action=list");
+				System.out.println("Categoria prodotto selezionata: " + request.getParameter("categoriaProdotto"));
+
+			    request.getRequestDispatcher("views/welcome.jsp").forward(request, response);
 			} else if ("update".equals(action)) {
 				String idStr = request.getParameter("id");
 				if (idStr != null && !idStr.isEmpty()) {
@@ -267,7 +287,7 @@ public class ProdottoServlet extends HttpServlet {
 					ProdottoDTO prodotto = creaProdottoDTO(request);
 					prodotto.setId(id);
 					gestioneProdotto.update(prodotto);
-					response.sendRedirect("ProdottoServlet?action=list");
+				    request.getRequestDispatcher("views/welcome.jsp").forward(request, response);
 				} else {
 					request.setAttribute("errore", "ID del prodotto mancante.");
 					request.getRequestDispatcher("views/errore.jsp").forward(request, response);
@@ -338,6 +358,7 @@ public class ProdottoServlet extends HttpServlet {
 		prodotto.setIva(req.getParameter("iva"));
 		prodotto.setDescrizioneProdotto(req.getParameter("descrizioneProdotto"));
 		prodotto.setQuantita(req.getParameter("quantita"));
+		prodotto.setCategoriaProdotto(req.getParameter("categoriaProdotto"));
 
 		return prodotto;
 	}

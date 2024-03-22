@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import it.molinari.model.ProdottoDTO;
 import it.molinari.model.RecensioneDTO;
 
 public class RecensioneDAO extends Dao implements DaoInterface<RecensioneDTO> {
@@ -29,13 +28,27 @@ public class RecensioneDAO extends Dao implements DaoInterface<RecensioneDTO> {
 
 	}
 
-	public void create(RecensioneDTO recensione) throws SQLException {
-		String sql = "INSERT INTO recensioni (prodottoId, testo) VALUES ( ?, ?)";
-		try (Connection conn = getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
-			stmt.setInt(1, recensione.getProdottoId());
-			stmt.setString(2, recensione.getTesto());
-			stmt.executeUpdate();
-		}
+	public void create(RecensioneDTO recensione) {
+	    String sql = "INSERT INTO recensioni (prodottoId, testo) VALUES (?, ?)";
+	    try (Connection conn = getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+	        // Imposta i valori dei parametri nella query SQL
+	        stmt.setInt(1, recensione.getProdottoId());
+	        stmt.setString(2, recensione.getTesto());
+	        
+	        // Esegui la query di inserimento
+	        int rowsAffected = stmt.executeUpdate();
+	        
+	        // Verifica se l'inserimento è stato effettuato correttamente
+	        if (rowsAffected > 0) {
+	            System.out.println("Recensione inserita con successo.");
+	        } else {
+	            System.out.println("Nessuna riga inserita.");
+	        }
+	    } catch (SQLException e) {
+	        // Gestisci eventuali errori durante l'accesso al database
+	        System.err.println("Errore durante l'accesso al database: " + e.getMessage());
+	        e.printStackTrace(); // Stampa la traccia dello stack per identificare la causa dell'errore
+	    }
 	}
 
 	public void delete(String id) throws SQLException {

@@ -1,4 +1,4 @@
-<%@page import="it.molinari.model.UtenteDTO"%>
+<%@page import="it.ecommerce.model.UtenteDTO"%>
 <%@page import="it.molinari.service.Ruolo"%>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
